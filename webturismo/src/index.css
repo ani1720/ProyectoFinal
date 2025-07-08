@@ -1,59 +1,14 @@
-/* Fuente elegante */
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
-
+/* Reset general */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
-body {
-  font-family: 'Raleway', sans-serif;
-  background: linear-gradient(to right, #f2f4f7, #e6eaee);
-  color: #333;
-  line-height: 1.6;
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
-
-/* Navegación */
-nav {
-  background-color: #ffffff;
-  padding: 1rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  text-align: center;
-}
-
-nav a {
-  color: #006a91;
-  text-decoration: none;
-  margin: 0 1rem;
-  font-weight: bold;
-  transition: color 0.3s ease;
-}
-
-nav a:hover {
-  color: #009ec3;
-}
-
-/* Contenedor principal */
-div {
-  padding: 2rem;
-  max-width: 800px;
-  margin: auto;
-}
-
-/* Títulos */
-h1 {
-  font-size: 2rem;
-  color: #005577;
-  margin-bottom: 1rem;
-}
-
-/* Animación suave de carga */
-#root {
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+.navbar {
+  border-radius: 0; /* elimina bordes redondeados */
 }
