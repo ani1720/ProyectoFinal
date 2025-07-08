@@ -54,3 +54,16 @@
   font-size: 1.2rem;
   margin: 1rem 0;
 }
+/* src/App.css */
+.App {
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  padding: 1rem;
+  background-color: #f7f7f7;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+

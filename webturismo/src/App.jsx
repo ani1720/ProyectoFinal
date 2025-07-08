@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import Header from './Header'
 import rutaTarracoImg from './assets/ruta-tarraco.png'
 import './App.css'
@@ -23,6 +24,19 @@ function App() {
       </div>
     </>
   )
+=======
+// src/App.jsx
+import "./App.css";
+import MapView from "./MapView";
+
+function App() {
+  return (
+    <div className="App">
+      <h1>Rutas de Montaña en Tarragona</h1>
+      <MapView />
+    </div>
+  );
+>>>>>>> Stashed changes
 }
 
-export default App
+export default App;
