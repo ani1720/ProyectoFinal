@@ -1,6 +1,5 @@
-// src/App.jsx
-import "./App.css";
 import MapView from "./MapView";
+import "./App.css";
 
 function App() {
   return (

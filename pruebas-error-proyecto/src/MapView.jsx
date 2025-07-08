@@ -1,48 +1,42 @@
-// src/components/MapView.jsx
+import { useEffect, useRef } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-gpx";
 
-
-// Coordenadas simuladas para una ruta de montaña
-const rutaMontana = [
-  [41.1176, 1.2543], // Punto inicio
-  [41.1200, 1.2600],
-  [41.1230, 1.2650],
-  [41.1265, 1.2705], // Punto final
-];
-
-// Icono personalizado
-const customIcon = new L.Icon({
-  iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
-  iconSize: [25, 25],
-});
-
 const MapView = () => {
-  return (
-    <MapContainer
-      center={[41.1189, 1.2445]} // Tarragona
-      zoom={13}
-      style={{ height: "80vh", width: "100%" }}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://osm.org">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+  const mapRef = useRef(null);
 
-      {/* Ruta en línea roja */}
-      <Polyline positions={rutaMontana} color="red" weight={4} />
+  useEffect(() => {
+    // Prevenir doble inicialización
+    if (mapRef.current !== null) return;
 
-      {/* Marcadores */}
-      <Marker position={rutaMontana[0]} icon={customIcon}>
-        <Popup>Inicio de ruta</Popup>
-      </Marker>
+    // Crear mapa una sola vez
+    mapRef.current = L.map("map").setView([41.12, 1.26], 13);
 
-      <Marker position={rutaMontana[rutaMontana.length - 1]} icon={customIcon}>
-        <Popup>Mirador final</Popup>
-      </Marker>
-    </MapContainer>
-  );
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "&copy; OpenStreetMap contributors",
+    }).addTo(mapRef.current);
+
+    new L.GPX("/gpx/ruta_tarragona.gpx", {
+      async: true,
+      polyline_options: {
+        color: "blue",
+        weight: 4,
+        opacity: 0.8,
+      },
+      marker_options: {
+        startIconUrl: "https://cdn-icons-png.flaticon.com/128/149/149059.png",
+        endIconUrl: "https://cdn-icons-png.flaticon.com/128/149/149983.png",
+        shadowUrl: "",
+      },
+    })
+      .on("loaded", function (e) {
+        mapRef.current.fitBounds(e.target.getBounds());
+      })
+      .addTo(mapRef.current);
+  }, []);
+
+  return <div id="map" style={{ width: "100%", height: "80vh" }} />;
 };
 
 export default MapView;
