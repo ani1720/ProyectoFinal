@@ -11,7 +11,6 @@ const MapView = () => {
       attribution: "&copy; OpenStreetMap contributors",
     }).addTo(map);
 
-    // GPX cargado desde carpeta public/gpx/
     new L.GPX("/gpx/ruta_tarragona.gpx", {
       async: true,
       polyline_options: {
