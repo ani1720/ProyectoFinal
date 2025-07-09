@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<gpx version="1.1" creator="ChatGPT" xmlns="http://www.topografix.com/GPX/1/1">
+  <trk>
+    <name>Ruta de la Playa del Miracle</name>
+    <trkseg>
+      <trkpt lat="41.1105" lon="1.2498">
+        <ele>5</ele>
+      </trkpt>
+      <trkpt lat="41.1121" lon="1.252">
+        <ele>5</ele>
+      </trkpt>
+      <trkpt lat="41.1136" lon="1.2545">
+        <ele>5</ele>
+      </trkpt>
+      <trkpt lat="41.115" lon="1.257">
+        <ele>5</ele>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>
