@@ -1,33 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import Header from './Header'
+import rutaTarracoImg from './assets/ruta-tarraco.png'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <Header />
+      
+      <div className="mapa-info-container">
+        {/* Columna izquierda: Detalles */}
+        <div className="info">
+  <h1>Turismo en Tarragona</h1>
+  <p>
+    Bienvenido a nuestra plataforma de turismo inteligente en Tarragona. 
+    Aquí descubrirás las rutas culturales más importantes, información histórica y servicios útiles 
+    como restaurantes, zonas wifi, transporte y más.
+  </p>
+  <p>
+    Nuestra misión es ayudarte a explorar los lugares emblemáticos de la ciudad con mapas interactivos, 
+    curiosidades culturales y recomendaciones personalizadas.
+  </p>
+</div>
+
+
+        {/* Columna derecha: Mapa */}
+        <div className="mapa">
+          <h2>RUTA HISTÓRICA ANTIGUO TARRACO</h2>
+          <img src={rutaTarracoImg} alt="Ruta Tarraco" />
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
