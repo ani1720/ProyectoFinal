@@ -39,16 +39,6 @@ function App() {
     return () => unsubscribe()
   }, [])
 
-  const loginDePrueba = async () => {
-    try {
-      await signInWithEmailAndPassword(auth, "adriagonzalez777@gmail.com", "webturismo7")
-      setErrorLogin(null)
-    } catch (error) {
-      console.error("Error de login:", error.message)
-      setErrorLogin("❌ Credenciales inválidas o usuario no registrado.")
-    }
-  }
-// !--
   return (
     <>
       <Header />
@@ -76,7 +66,6 @@ function App() {
             ) : (
               <>
                 <p>🔒 Usuario no autenticado</p>
-                <button onClick={loginDePrueba}>Probar login</button>
                 {errorLogin && <p style={{ color: "red" }}>{errorLogin}</p>}
               </>
             )}
