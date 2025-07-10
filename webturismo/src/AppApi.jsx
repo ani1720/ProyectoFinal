@@ -23,7 +23,7 @@ function RouteGenerator() {
     setRouteCoordinates([]); // Limpia resultados anteriores
 
        console.log('Valor actual del estado Origin:', origin);
-       
+
     // Codifica los parámetros de la URL
     const params = new URLSearchParams({
       origin: origin,
@@ -34,15 +34,16 @@ function RouteGenerator() {
     });
 
     const url = `https://maps.googleapis.com/maps/api/directions/json?${params.toString()}`;
-
+    console.log(url);
     try {
       const response = await fetch(url);
+      console.log('Acaba de hacer el fetch');
       const data = await response.json();
-
+      console.log('Acaba de hacer el response');
       if (data.status === 'OK') {
         // La polilínea codificada está en data.routes[0].overview_polyline.points
         const encodedPolyline = data.routes[0].overview_polyline.points;
-        
+        console.log(encodedPolyline);
         // Decodifica la polilínea en una lista de [lat, lon]
         const decodedCoords = polyline.decode(encodedPolyline);
         setRouteCoordinates(decodedCoords);
