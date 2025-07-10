@@ -1,26 +1,26 @@
 [
   {
     "id": 1,
-    "titulo": "La Mussara - Avencs de la Febró",
-    "descripcion": "Ruta de montaña entre bosques y formaciones rocosas.",
-    "tipo": "montaña",
-    "archivo_gpx": "/gpx/ruta_tarragona.gpx",
-    "es_predeterminada": true
+    "nombre": "Ruta Romana",
+    "tipo": "histórica",
+    "descripcion": "Descubre los restos de Tarraco.",
+    "duracion": "2h",
+    "imagen": "/src/assets/anfiteatro.jpg"
   },
   {
     "id": 2,
-    "titulo": "Ruta de las Murallas Romanas",
-    "descripcion": "Paseo por los restos romanos de Tarragona.",
-    "tipo": "histórica",
-    "archivo_gpx": "/gpx/murallas_romanas.gpx",
-    "es_predeterminada": true
+    "nombre": "Ruta de Montaña",
+    "tipo": "montaña",
+    "descripcion": "Conecta con la naturaleza.",
+    "duracion": "3h",
+    "imagen": "/src/assets/murallas.jpg"
   },
-    {
+  {
     "id": 3,
-    "titulo": "Playa del Miracle",
-    "descripcion": "Paseo junto al mar desde el puerto hasta la playa.",
+    "nombre": "Ruta de Playa",
     "tipo": "playa",
-    "archivo_gpx": "/gpx/playa_miracle.gpx",
-    "es_predeterminada": true
+    "descripcion": "Relájate junto al mar.",
+    "duracion": "1.5h",
+    "imagen": "/src/assets/balcon.jpg"
   }
 ]

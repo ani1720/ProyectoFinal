@@ -1,0 +1,83 @@
+.ruta-list {
+  padding: 2rem;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.filtros {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.filtros button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: #ddd;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.filtros button.activo {
+  background: #48bb78;
+  color: white;
+}
+
+.grid-rutas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  height: calc(100vh - 180px); /* Ajusta según altura de header + filtros */
+  box-sizing: border-box;
+}
+
+
+.tarjeta-ruta {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  height: 100%; /* ocupa toda la celda del grid */
+  display: flex;
+  flex-direction: column;
+}
+
+.tarjeta-ruta img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.4s ease;
+}
+
+
+.tarjeta-ruta .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.65);
+  color: white;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: 0.4s ease;
+  text-align: left;
+}
+
+.tarjeta-ruta:hover img {
+  filter: blur(2px) brightness(0.7);
+}
+
+.tarjeta-ruta:hover .overlay {
+  opacity: 1;
+}
+.ruta-list {
+  padding: 1rem 2rem;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
