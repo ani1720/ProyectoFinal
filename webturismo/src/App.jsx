@@ -1,16 +1,18 @@
+import RouteGenerator from "./AppApi";
+import Header from './Header';
+import rutaTarracoImg from './assets/ruta-tarraco.png';
+import './App.css';
+import anfiteatroImg from './assets/anfiteatro.jpg';
+import catedralImg from './assets/catedral.jpg';
+import murallasImg from './assets/murallas.jpg';
+import plazaReiImg from './assets/plaza-rei.jpg';
+import balconImg from './assets/balcon.jpg';
 import { useEffect, useState } from 'react'
-import Header from './Header'
-import rutaTarracoImg from './assets/ruta-tarraco.png'
-import './App.css'
-import { auth } from "./firebase/firebaseConfig"
-import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth"
 import Login from "./Login"
-import RouteGenerator from "./AppApi"
-import anfiteatroImg from './assets/anfiteatro.jpg'
-import catedralImg from './assets/catedral.jpg'
-import murallasImg from './assets/murallas.jpg'
-import plazaReiImg from './assets/plaza-rei.jpg'
-import balconImg from './assets/balcon.jpg'
+import { auth } from "./firebase/firebaseConfig";
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+
+
 
 function App() {
   const lugares = [
@@ -39,8 +41,10 @@ function App() {
     return () => unsubscribe()
   }, [])
 
+
   return (
     <>
+
       <Header />
       <Login />
 
@@ -59,7 +63,7 @@ function App() {
 
           <p><strong>Descripción:</strong> Esta aplicación interactiva permite a los usuarios explorar el patrimonio histórico y cultural de Tarragona a través de una ruta guiada con imágenes, descripciones detalladas, mapas y horarios.</p>
           <p><strong>Servicios:</strong> Ofrecemos un tour turístico personalizado que se adapta al ritmo de cada persona. Disfruta de la historia, los secretos y rincones emblemáticos de Tarragona a tu manera.</p>
-
+          </div>
           <div>
             {usuario ? (
               <p>👋 Hola, {usuario.email}</p>
@@ -76,12 +80,11 @@ function App() {
           <h2>RUTA HISTÓRICA ANTIGUO TARRACO</h2>
           <img src={rutaTarracoImg} alt="Ruta Tarraco" />
         </div>
-      </div>
-
+    
       <div className="App">
         <RouteGenerator />
       </div>
-
+ 
       <div className="slider-wrapper">
         {lugares.map((lugar, i) => (
           <img
@@ -110,8 +113,7 @@ function App() {
           </div>
         </div>
       )}
-    </>
-  )
-}
-
+     </>
+    );
+    }
 export default App

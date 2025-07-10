@@ -8,7 +8,7 @@ import RouteGenerator from './AppApi.jsx'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <App />
-    <Ruta/>
+    {/* <Ruta/> */}
     <RouteGenerator />
   </React.StrictMode>
 )

@@ -3,8 +3,8 @@ import polyline from 'polyline';
 
 // *** IMPORTANTE: RESTRINGE TU API KEY EN LA CONSOLA DE GOOGLE CLOUD ***
 // Para desarrollo, puedes ponerla aquí. Para producción, considera un proxy.
-const GOOGLE_API_KEY = 'TU_CLAVE_API_AQUI'; 
-
+const GOOGLE_API_KEY = 'AIzaSyD_eM5DJPJRpaNB_vTOojmeJ7VpaxltFGo'; 
+//http://localhost:*
 function RouteGenerator() {
   // Estados para las coordenadas de la ruta
   const [origin, setOrigin] = useState('41.1080,1.2510'); // Ejemplo de Platja del Miracle
@@ -22,6 +22,8 @@ function RouteGenerator() {
     setError(null);
     setRouteCoordinates([]); // Limpia resultados anteriores
 
+       console.log('Valor actual del estado Origin:', origin);
+       
     // Codifica los parámetros de la URL
     const params = new URLSearchParams({
       origin: origin,
