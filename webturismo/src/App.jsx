@@ -10,8 +10,6 @@ import murallasImg from './assets/murallas.jpg';
 import plazaReiImg from './assets/plaza-rei.jpg';
 import balconImg from './assets/balcon.jpg';
 
-a5f87037436a44c271de19ed089623a030af4300
-
 function App() {
   const lugares = [
     { id: 1, nombre: 'Anfiteatro', img: anfiteatroImg, descripcion: 'Antiguo anfiteatro romano frente al mar.' },
@@ -55,9 +53,7 @@ function App() {
           <img src={rutaTarracoImg} alt="Ruta Tarraco" />
         </div>
       
-       <div className="App">
-          <RouteGenerator />
-        </div>
+       
         </>
   );
 
