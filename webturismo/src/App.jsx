@@ -1,5 +1,5 @@
 import RouteGenerator from "./AppApi";
-import { useState } from 'react';
+// import { useState } from 'react';
 import Header from './Header';
 import rutaTarracoImg from './assets/ruta-tarraco.png';
 import './App.css';
@@ -9,22 +9,22 @@ import murallasImg from './assets/murallas.jpg';
 import plazaReiImg from './assets/plaza-rei.jpg';
 import balconImg from './assets/balcon.jpg';
 import { useEffect, useState } from 'react'
-import Header from './Header'
-import rutaTarracoImg from './assets/ruta-tarraco.png'
-import './App.css'
-import { auth } from "./firebase/firebaseConfig"
-import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth"
 import Login from "./Login"
-import RouteGenerator from "./AppApi"
-import anfiteatroImg from './assets/anfiteatro.jpg'
-import catedralImg from './assets/catedral.jpg'
-import murallasImg from './assets/murallas.jpg'
-import plazaReiImg from './assets/plaza-rei.jpg'
-import balconImg from './assets/balcon.jpg'
-import { useState, useEffect } from 'react';
 import { auth } from "./firebase/firebaseConfig";
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
-import Login from "./Login";
+
+// import { auth } from "./firebase/firebaseConfig"
+// import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth"
+// import RouteGenerator from "./AppApi"
+// import anfiteatroImg from './assets/anfiteatro.jpg'
+// import catedralImg from './assets/catedral.jpg'
+// import murallasImg from './assets/murallas.jpg'
+// import plazaReiImg from './assets/plaza-rei.jpg'
+// import balconImg from './assets/balcon.jpg'
+// import { useState, useEffect } from 'react';
+// import { auth } from "./firebase/firebaseConfig";
+// import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+// import Login from "./Login";
 
 function App() {
   const lugares = [
