@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-import Header from "./Header";
-import rutaTarracoImg from "./assets/ruta-tarraco.png";
-import "./App.css";
+
 import RouteGenerator from "./AppApi";
-=======
 import { useState } from 'react';
 import Header from './Header';
 import rutaTarracoImg from './assets/ruta-tarraco.png';
@@ -14,7 +10,7 @@ import murallasImg from './assets/murallas.jpg';
 import plazaReiImg from './assets/plaza-rei.jpg';
 import balconImg from './assets/balcon.jpg';
 
->>>>>>> a5f87037436a44c271de19ed089623a030af4300
+a5f87037436a44c271de19ed089623a030af4300
 
 function App() {
   const lugares = [
@@ -36,7 +32,6 @@ function App() {
       <div className="mapa-info-container">
         <div className="info">
           <h1>Turismo en Tarragona</h1>
-<<<<<<< HEAD
           <p>
             Bienvenido a nuestra plataforma de turismo inteligente en Tarragona.
             Aquí descubrirás las rutas culturales más importantes, información
@@ -51,20 +46,19 @@ function App() {
         </div>
 
         {/* Columna derecha: Mapa */}
-=======
+
           <p><strong>Descripción:</strong> Esta aplicación interactiva permite a los usuarios explorar el patrimonio histórico y cultural de Tarragona a través de una ruta guiada con imágenes, descripciones detalladas, mapas y horarios. Diseñada para turistas y curiosos, la app facilita el descubrimiento de los lugares más emblemáticos del antiguo Tarraco de forma visual e intuitiva.</p>
           <p><strong>Servicios:</strong>  Ofrecemos un tour turístico personalizado que se adapta al ritmo de cada persona. Gracias a nuestra aplicación, los usuarios pueden explorar la ciudad de forma libre, sin necesidad de seguir a un guía. Disfruta de la historia, los secretos y rincones emblemáticos de Tarragona a tu manera, con acceso a mapas interactivos, descripciones detalladas, horarios, ubicaciones y recomendaciones gastronómicas cercanas.</p>        </div>
 
->>>>>>> a5f87037436a44c271de19ed089623a030af4300
         <div className="mapa">
           <h2>RUTA HISTÓRICA ANTIGUO TARRACO</h2>
           <img src={rutaTarracoImg} alt="Ruta Tarraco" />
         </div>
-      </div>
+      
        <div className="App">
           <RouteGenerator />
         </div>
-    </>
+        </>
   );
 
       <div className="slider-wrapper">
@@ -97,13 +91,6 @@ function App() {
 )}
 
 
-
-
-     
-    </>
-  );
-
->>>>>>> a5f87037436a44c271de19ed089623a030af4300
 }
 
 export default App;
