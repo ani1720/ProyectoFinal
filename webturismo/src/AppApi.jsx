@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import polyline from 'polyline'; 
 
-// *** IMPORTANTE: RESTRINGE TU API KEY EN LA CONSOLA DE GOOGLE CLOUD ***
+
 // Para desarrollo, puedes ponerla aquí. Para producción, considera un proxy.
-const GOOGLE_API_KEY = 'AIzaSyD_eM5DJPJRpaNB_vTOojmeJ7VpaxltFGo'; 
+const ORS_API_KEY = 'eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjcwNGMxOTg0NGQ1MjQ5YjliOWJhMjE0NjE0MzUyNjlmIiwiaCI6Im11cm11cjY0In0='; 
 //http://localhost:*
 function RouteGenerator() {
   // Estados para las coordenadas de la ruta
@@ -23,7 +23,7 @@ function RouteGenerator() {
     setRouteCoordinates([]); // Limpia resultados anteriores
 
        console.log('Valor actual del estado Origin:', origin);
-       
+
     // Codifica los parámetros de la URL
     const params = new URLSearchParams({
       origin: origin,
@@ -34,15 +34,16 @@ function RouteGenerator() {
     });
 
     const url = `https://maps.googleapis.com/maps/api/directions/json?${params.toString()}`;
-
+    console.log(url);
     try {
       const response = await fetch(url);
+      console.log('Acaba de hacer el fetch');
       const data = await response.json();
-
+      console.log('Acaba de hacer el response');
       if (data.status === 'OK') {
         // La polilínea codificada está en data.routes[0].overview_polyline.points
         const encodedPolyline = data.routes[0].overview_polyline.points;
-        
+        console.log(encodedPolyline);
         // Decodifica la polilínea en una lista de [lat, lon]
         const decodedCoords = polyline.decode(encodedPolyline);
         setRouteCoordinates(decodedCoords);
