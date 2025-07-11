@@ -4,12 +4,10 @@ import RutaDetalle from "./pages/RutaDetalle";
 
 function Ruta() {
   return (
-    <Router>
       <Routes>
         <Route path="/" element={<RutaList />} />
         <Route path="/ruta/:id" element={<RutaDetalle />} />
       </Routes>
-    </Router>
   );
 }
 
