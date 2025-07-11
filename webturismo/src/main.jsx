@@ -7,7 +7,7 @@ import { BrowserRouter } from 'react-router-dom'
 import RouteGenerator from './AppApi.jsx'
 const rootElement = document.getElementById('root')
 const root = ReactDOM.createRoot(rootElement)
-root.render(
+root.render
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
