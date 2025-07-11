@@ -173,3 +173,4 @@ function RouteGenerator() {
 } // CORRECCIÓN 4: Eliminada esta llave extra
 // CORRECCIÓN 5: Eliminada esta llave extra (había dos)
 export default RouteGenerator;
+
