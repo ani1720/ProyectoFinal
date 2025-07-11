@@ -2,13 +2,15 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
-import Ruta from './Ruta.jsx'
-import RouteGenerator from './AppApi.jsx'
+import { BrowserRouter } from 'react-router-dom'
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+const rootElement = document.getElementById('root')
+const root = ReactDOM.createRoot(rootElement)
+
+root.render(
   <React.StrictMode>
-    <App />
-    <Ruta/>
-    <RouteGenerator />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 )
