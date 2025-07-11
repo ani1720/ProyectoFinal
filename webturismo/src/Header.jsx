@@ -24,6 +24,12 @@ function Header({ usuario, cerrarSesion }) {
             </>
           )}
         </div>
+
+        <a href="#">HOME</a>
+        <a href="#">ABOUT</a>
+        <a href="#">EVENTOS</a>
+        <a href="#">MAP</a>
+        <a href="#">RUTAS</a>
       </nav>
     </header>
   );

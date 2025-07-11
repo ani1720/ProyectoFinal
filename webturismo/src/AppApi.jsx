@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import polyline from 'polyline'; 
 
-// *** IMPORTANTE: RESTRINGE TU API KEY EN LA CONSOLA DE GOOGLE CLOUD ***
+
 // Para desarrollo, puedes ponerla aquí. Para producción, considera un proxy.
-const GOOGLE_API_KEY = 'AIzaSyD_eM5DJPJRpaNB_vTOojmeJ7VpaxltFGo'; 
+const ORS_API_KEY = 'eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjcwNGMxOTg0NGQ1MjQ5YjliOWJhMjE0NjE0MzUyNjlmIiwiaCI6Im11cm11cjY0In0='; 
 //http://localhost:*
 function RouteGenerator() {
   // Estados para las coordenadas de la ruta
@@ -16,6 +16,13 @@ function RouteGenerator() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const formatoCoordParaORS = (coordsString) => {
+    return coordsString.split('|').map(pair =>{
+      const [lat, lon] = pair.split(',');
+      return '${lon},${lat}';
+    })
+  };
+
   // Función para obtener la ruta de la API de Google Directions
   const fetchRoute = async () => {
     setLoading(true);
@@ -26,36 +33,70 @@ function RouteGenerator() {
 
     // Codifica los parámetros de la URL
     const params = new URLSearchParams({
-      origin: origin,
-      destination: destination,
-      mode: 'walking', // O 'bicycling', 'driving', etc.
-      waypoints: waypoints,
-      key: GOOGLE_API_KEY
+      api_key: ORS_API_KEY
     });
+     // Los puntos se pasan directamente en la URL del endpoint
+    // ORS usa un formato diferente para los waypoints en la URL, los añadimos directamente al path o como parámetro 'points'
+    // Para simplificar, usaremos un GET con 'start', 'end' y 'waypoints' como en el ejemplo conceptual
 
-    const url = `https://maps.googleapis.com/maps/api/directions/json?${params.toString()}`;
-    console.log(url);
-    try {
-      const response = await fetch(url);
-      console.log('Acaba de hacer el fetch');
-      const data = await response.json();
-      console.log('Acaba de hacer el response');
-      if (data.status === 'OK') {
-        // La polilínea codificada está en data.routes[0].overview_polyline.points
-        const encodedPolyline = data.routes[0].overview_polyline.points;
-        console.log(encodedPolyline);
-        // Decodifica la polilínea en una lista de [lat, lon]
-        const decodedCoords = polyline.decode(encodedPolyline);
-        setRouteCoordinates(decodedCoords);
-      } else {
-        setError(`Error en la API: ${data.status} - ${data.error_message || ''}`);
+    let orsUrl = `https://api.openrouteservice.org/v2/directions/foot-walking?`;
+    orsUrl += `start=${orsOrigin}&`;
+    orsUrl += `end=${orsDestination}`;
+      if(orsWaypoints) {
+        orsUrl += `&waypoints=${orsWaypoints}`;
       }
-    } catch (err) {
-      setError(`Error al conectar con la API: ${err.message}`);
-    } finally {
+      orsUrl += `&api_key=${ORS_API_KEY}`;
+
+      console.log('URL de la solicitud a ORS:', orsUrl);
+    try {
+      const response = await fetch(orsUrl, {
+        method: 'GET',
+        headers: {
+          'Accept' : 'application/json',
+           // 'Authorization': ORS_API_KEY
+           // Para algunos endpoints puede requerir header Authorization
+        }
+      });
+
+      const data = await response.json();
+
+      if(response.ok) {
+        const orsRouteCoords= data.features[0].geometry.coordinates;
+
+        const formattedCoords = orsRouteCoords.map(coord => [coord[1],
+        coord[0]]);
+        setRouteCoordinates(formatteCoords);
+      }else {
+        setError(`Error en la API de ORS: ${data.error ? data.error.message : response.statusText}`);
+        console.error('Respuesta de error de ORS:', data);
+      }
+    }catch (err) {
+      setError(`Error al conectar con la API de ORS: ${err.message}`);
+      console.error('Error de red o fetch fallido:', err);
+    }finally {
       setLoading(false);
-    }
-  };
+    };
+
+//Para conxion de API de GoogleMAps
+  //     console.log('Acaba de hacer el fetch');
+  //     const data = await response.json();
+  //     console.log('Acaba de hacer el response');
+  //     if (data.status === 'OK') {
+  //       // La polilínea codificada está en data.routes[0].overview_polyline.points
+  //       const encodedPolyline = data.routes[0].overview_polyline.points;
+  //       console.log(encodedPolyline);
+  //       // Decodifica la polilínea en una lista de [lat, lon]
+  //       const decodedCoords = polyline.decode(encodedPolyline);
+  //       setRouteCoordinates(decodedCoords);
+  //     } else {
+  //       setError(`Error en la API: ${data.status} - ${data.error_message || ''}`);
+  //     }
+  //   } catch (err) {
+  //     setError(`Error al conectar con la API: ${err.message}`);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   // Función para generar el contenido GPX
   const generateGpx = () => {
@@ -149,5 +190,5 @@ function RouteGenerator() {
     </div>
   );
 }
-
-export default RouteGenerator;
+}
+export default RouteGenerator
