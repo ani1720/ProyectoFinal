@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+
 import polyline from 'polyline';
 
 const ORS_API_KEY = 'eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjcwNGMxOTg0NGQ1MjQ5YjliOWJhMjE0NjE0MzUyNjlmIiwiaCI6Im11cm11cjY0In0=';
@@ -8,6 +9,8 @@ const ORS_API_KEY = 'eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjcwNGM
 
 // IMPORTANTE: RESTRINGE TU API KEY EN LA CONSOLA DE OpenRouteService.
 // Asegúrate de que el dominio de tu app (ej. http://localhost:5174/*) esté permitido.
+
+import polyline from 'polyline';
 
 
 function RouteGenerator() {
@@ -18,107 +21,57 @@ function RouteGenerator() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // CORRECCIÓN 1: Usar backticks (`) para el template literal
   const formatoCoordParaORS = (coordsString) => {
     return coordsString.split('|').map(pair => {
       const [lat, lon] = pair.split(',');
 
+
       return `${lon},${lat}`;
     });
   };
-      return `${lon},${lat}`; // Usar backticks para interpolar ${lon} y ${lat}
-    }).join('|'); // Re-unir los pares con '|'
-  };
+    return `${lon},${lat}`; 
+  }).join('|'); 
+}
 
-  // Función para obtener la ruta de la API de OpenRouteService
->>>>>>> 95169cad645ae38eb849156dfcb5f333c6fc69d9:pruebas-error-proyecto/src/AppApi.jsx
+// Función para obtener la ruta de la API de OpenRouteService
+
   const fetchRoute = async () => {
     setLoading(true);
     setError(null);
     setRouteCoordinates([]);
 
-<<<<<<< HEAD:webturismo/src/AppApi.jsx
     const orsOrigin = formatoCoordParaORS(origin);
     const orsDestination = formatoCoordParaORS(destination);
     const orsWaypoints = waypoints ? formatoCoordParaORS(waypoints) : '';
 
-    let orsUrl = `/ors/v2/directions/foot-walking?...`
-   orsUrl += `start=${orsOrigin}&end=${orsDestination}`;
+    let orsUrl = `https://api.openrouteservice.org/v2/directions/foot-walking?`;
+    orsUrl += `start=${orsOrigin}&end=${orsDestination}`;
     if (orsWaypoints) {
       orsUrl += `&waypoints=${orsWaypoints}`;
     }
     orsUrl += `&api_key=${ORS_API_KEY}`;
 
-=======
-    console.log('Valor actual del estado Origin:', origin);
-
-    // CORRECCIÓN 2: Llamar a formatoCoordParaORS para definir estas variables
-    const orsOrigin = formatoCoordParaORS(origin);
-    const orsDestination = formatoCoordParaORS(destination);
-    const orsWaypoints = waypoints ? formatoCoordParaORS(waypoints) : ''; // Manejar caso de waypoints vacíos
-
-    // Construye la URL de la solicitud a ORS
-    let orsUrl = `https://api.openrouteservice.org/v2/directions/foot-walking?`; // Aquí defines el perfil/modo
-    orsUrl += `start=${orsOrigin}&`;
-    orsUrl += `end=${orsDestination}`;
-    if (orsWaypoints) {
-      orsUrl += `&waypoints=${orsWaypoints}`;
-    }
-    orsUrl += `&api_key=${ORS_API_KEY}`; // La clave API al final
-
-    console.log('URL de la solicitud a ORS:', orsUrl);
-
->>>>>>> 95169cad645ae38eb849156dfcb5f333c6fc69d9:pruebas-error-proyecto/src/AppApi.jsx
     try {
       const response = await fetch(orsUrl, {
-        method: 'GET', // ORS también soporta POST, que es más seguro para API keys
+        method: 'GET',
         headers: {
-<<<<<<< HEAD:webturismo/src/AppApi.jsx
           'Accept': 'application/json'
-=======
-          'Accept': 'application/json',
-          // 'Authorization': ORS_API_KEY // Para algunos endpoints puede requerir header Authorization
->>>>>>> 95169cad645ae38eb849156dfcb5f333c6fc69d9:pruebas-error-proyecto/src/AppApi.jsx
         }
       });
 
       const data = await response.json();
 
-<<<<<<< HEAD:webturismo/src/AppApi.jsx
       if (response.ok) {
         const orsRouteCoords = data.features[0].geometry.coordinates;
         const formattedCoords = orsRouteCoords.map(coord => [coord[1], coord[0]]);
         setRouteCoordinates(formattedCoords);
-=======
-      if (response.ok) { // Verifica response.ok para HTTP 200-299
-        // La respuesta de ORS suele estar en data.features[0].geometry.coordinates
-        // Estos son [lon, lat], así que tendremos que invertirlos para GPX y nuestro estado
-        const orsRouteCoords = data.features[0].geometry.coordinates;
-        
-        // Invertir a [lat, lon] para el formato GPX y para setRouteCoordinates
-        const formattedCoords = orsRouteCoords.map(coord => [coord[1], coord[0]]);
-        setRouteCoordinates(formattedCoords); // CORRECCIÓN 3: Aquí estaba 'formatteCoords' en lugar de 'formattedCoords'
->>>>>>> 95169cad645ae38eb849156dfcb5f333c6fc69d9:pruebas-error-proyecto/src/AppApi.jsx
       } else {
         setError(`Error en la API de ORS: ${data.error ? data.error.message : response.statusText}`);
       }
     } catch (err) {
       setError(`Error al conectar con la API de ORS: ${err.message}`);
-<<<<<<< HEAD:webturismo/src/AppApi.jsx
     } finally {
       setLoading(false);
-=======
-      console.error('Error de red o fetch fallido:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Función para generar el contenido GPX
-  const generateGpx = () => {
-    if (routeCoordinates.length === 0) {
-      return '';
->>>>>>> 95169cad645ae38eb849156dfcb5f333c6fc69d9:pruebas-error-proyecto/src/AppApi.jsx
     }
   };
 
@@ -207,19 +160,4 @@ function RouteGenerator() {
       )}
     </div>
   );
-<<<<<<< HEAD
-<<<<<<< HEAD:webturismo/src/AppApi.jsx
-}
-
 export default RouteGenerator;
-=======
-} // CORRECCIÓN 4: Eliminada esta llave extra
-// CORRECCIÓN 5: Eliminada esta llave extra (había dos)
-export default RouteGenerator;
-=======
-}
-export default RouteGenerator
-
->>>>>>> 0627bf6dc2d46c2e57b929bb3980f51b969c8e89
-
->>>>>>> 95169cad645ae38eb849156dfcb5f333c6fc69d9:pruebas-error-proyecto/src/AppApi.jsx
