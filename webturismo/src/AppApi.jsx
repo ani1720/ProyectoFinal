@@ -17,7 +17,7 @@ function RouteGenerator() {
   const [error, setError] = useState(null);
 
   const formatoCoordParaORS = (coordsString) => {
-    return coordsString.split('|').map(pair =>{
+    return coordsString.split(`|`).map(pair =>{
       const [lat, lon] = pair.split(',');
       return '${lon},${lat}';
     })
@@ -38,7 +38,10 @@ function RouteGenerator() {
      // Los puntos se pasan directamente en la URL del endpoint
     // ORS usa un formato diferente para los waypoints en la URL, los añadimos directamente al path o como parámetro 'points'
     // Para simplificar, usaremos un GET con 'start', 'end' y 'waypoints' como en el ejemplo conceptual
-
+    const orsOrigin = formatoCoordParaORS(origin);
+    const orsDestination = formatoCoordParaORS(destination);
+    const orsWaypoints = waypoints ? formatoCoordParaORS(waypoints) : '';
+    
     let orsUrl = `https://api.openrouteservice.org/v2/directions/foot-walking?`;
     orsUrl += `start=${orsOrigin}&`;
     orsUrl += `end=${orsDestination}`;
@@ -76,28 +79,6 @@ function RouteGenerator() {
     }finally {
       setLoading(false);
     };
-
-//Para conxion de API de GoogleMAps
-  //     console.log('Acaba de hacer el fetch');
-  //     const data = await response.json();
-  //     console.log('Acaba de hacer el response');
-  //     if (data.status === 'OK') {
-  //       // La polilínea codificada está en data.routes[0].overview_polyline.points
-  //       const encodedPolyline = data.routes[0].overview_polyline.points;
-  //       console.log(encodedPolyline);
-  //       // Decodifica la polilínea en una lista de [lat, lon]
-  //       const decodedCoords = polyline.decode(encodedPolyline);
-  //       setRouteCoordinates(decodedCoords);
-  //     } else {
-  //       setError(`Error en la API: ${data.status} - ${data.error_message || ''}`);
-  //     }
-  //   } catch (err) {
-  //     setError(`Error al conectar con la API: ${err.message}`);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
   // Función para generar el contenido GPX
   const generateGpx = () => {
     if (routeCoordinates.length === 0) {
@@ -189,6 +170,5 @@ function RouteGenerator() {
       )}
     </div>
   );
-}
 }
 export default RouteGenerator
