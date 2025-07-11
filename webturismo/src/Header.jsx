@@ -9,6 +9,7 @@ function Header() {
         <a href="#">ABOUT</a>
         <a href="#">EVENTOS</a>
         <a href="#">MAP</a>
+        <a href="#">RUTAS</a>
       </nav>
     </header>
   )
