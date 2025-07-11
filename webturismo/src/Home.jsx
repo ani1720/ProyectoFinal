@@ -82,9 +82,9 @@ function Home() {
         <img src={rutaTarracoImg} alt="Ruta Tarraco" />
       </div>
 
-      <div className="App">
+      {/* <div className="App">
         <RouteGenerator />
-      </div>
+      </div> */}
 
       <div className="slider-wrapper">
         {lugares.map((lugar, i) => (
