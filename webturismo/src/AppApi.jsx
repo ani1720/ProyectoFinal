@@ -170,5 +170,5 @@ function RouteGenerator() {
       )}
     </div>
   );
-}
+}}
 export default RouteGenerator
