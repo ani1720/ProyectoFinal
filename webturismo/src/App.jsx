@@ -3,6 +3,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebaseConfig";
 
+import RutaList from './pages/RutaList';
 import Header from "./Header";
 import Login from "./Login";
 import Registro from "./Registro";
@@ -37,6 +38,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
+        <Route path="/rutas" element={<RutaList />} />
       </Routes>
     </>
   );
