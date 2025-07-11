@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import polyline from 'polyline'; 
 
-// *** IMPORTANTE: RESTRINGE TU API KEY EN LA CONSOLA DE GOOGLE CLOUD ***
+
 // Para desarrollo, puedes ponerla aquí. Para producción, considera un proxy.
-const GOOGLE_API_KEY = 'AIzaSyD_eM5DJPJRpaNB_vTOojmeJ7VpaxltFGo'; 
+const ORS_API_KEY = 'eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjcwNGMxOTg0NGQ1MjQ5YjliOWJhMjE0NjE0MzUyNjlmIiwiaCI6Im11cm11cjY0In0='; 
 //http://localhost:*
 function RouteGenerator() {
   // Estados para las coordenadas de la ruta
