@@ -1,7 +1,17 @@
 import React, { useState } from 'react';
+
+
 import polyline from 'polyline';
 
 const ORS_API_KEY = 'eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjcwNGMxOTg0NGQ1MjQ5YjliOWJhMjE0NjE0MzUyNjlmIiwiaCI6Im11cm11cjY0In0=';
+
+// import polyline from 'polyline'; // Esta librería ya no es necesaria si usas OpenRouteService directamente, puedes comentarla o borrarla si no vas a usar Google Maps
+
+// IMPORTANTE: RESTRINGE TU API KEY EN LA CONSOLA DE OpenRouteService.
+// Asegúrate de que el dominio de tu app (ej. http://localhost:5174/*) esté permitido.
+
+import polyline from 'polyline';
+
 
 function RouteGenerator() {
   const [origin, setOrigin] = useState('41.1080,1.2510');
@@ -14,9 +24,16 @@ function RouteGenerator() {
   const formatoCoordParaORS = (coordsString) => {
     return coordsString.split('|').map(pair => {
       const [lat, lon] = pair.split(',');
+
+
       return `${lon},${lat}`;
     });
   };
+    return `${lon},${lat}`; 
+  }).join('|'); 
+}
+
+// Función para obtener la ruta de la API de OpenRouteService
 
   const fetchRoute = async () => {
     setLoading(true);
@@ -143,6 +160,4 @@ function RouteGenerator() {
       )}
     </div>
   );
-}
-
 export default RouteGenerator;

@@ -1,4 +1,3 @@
-import RouteGenerator from "../../pruebas-error-proyecto/src/AppApi";
 import rutaTarracoImg from "./assets/ruta-tarraco.png";
 import anfiteatroImg from "./assets/anfiteatro.jpg";
 import catedralImg from "./assets/catedral.jpg";
