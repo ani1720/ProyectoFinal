@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-<<<<<<< HEAD:webturismo/src/AppApi.jsx
+
 import polyline from 'polyline';
 
 const ORS_API_KEY = 'eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjcwNGMxOTg0NGQ1MjQ5YjliOWJhMjE0NjE0MzUyNjlmIiwiaCI6Im11cm11cjY0In0=';
-=======
+
 // import polyline from 'polyline'; // Esta librería ya no es necesaria si usas OpenRouteService directamente, puedes comentarla o borrarla si no vas a usar Google Maps
 
 // IMPORTANTE: RESTRINGE TU API KEY EN LA CONSOLA DE OpenRouteService.
 // Asegúrate de que el dominio de tu app (ej. http://localhost:5174/*) esté permitido.
-const ORS_API_KEY = 'eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjcwNGMxOTg0NGQ1MjQ5YjliOWJhMjE0NjE0MzUyNjlmIiwiaCI6Im11cm11cjY0In0='; 
->>>>>>> 95169cad645ae38eb849156dfcb5f333c6fc69d9:pruebas-error-proyecto/src/AppApi.jsx
+
 
 function RouteGenerator() {
   const [origin, setOrigin] = useState('41.1080,1.2510');
@@ -23,12 +22,10 @@ function RouteGenerator() {
   const formatoCoordParaORS = (coordsString) => {
     return coordsString.split('|').map(pair => {
       const [lat, lon] = pair.split(',');
-<<<<<<< HEAD:webturismo/src/AppApi.jsx
+
       return `${lon},${lat}`;
     });
   };
-
-=======
       return `${lon},${lat}`; // Usar backticks para interpolar ${lon} y ${lat}
     }).join('|'); // Re-unir los pares con '|'
   };
