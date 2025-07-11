@@ -210,6 +210,7 @@ function RouteGenerator() {
       )}
     </div>
   );
+<<<<<<< HEAD
 <<<<<<< HEAD:webturismo/src/AppApi.jsx
 }
 
@@ -218,5 +219,10 @@ export default RouteGenerator;
 } // CORRECCIÓN 4: Eliminada esta llave extra
 // CORRECCIÓN 5: Eliminada esta llave extra (había dos)
 export default RouteGenerator;
+=======
+}
+export default RouteGenerator
+
+>>>>>>> 0627bf6dc2d46c2e57b929bb3980f51b969c8e89
 
 >>>>>>> 95169cad645ae38eb849156dfcb5f333c6fc69d9:pruebas-error-proyecto/src/AppApi.jsx
