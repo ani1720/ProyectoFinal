@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import polyline from 'polyline'; 
+// import polyline from 'polyline'; // Esta librería ya no es necesaria si usas OpenRouteService directamente, puedes comentarla o borrarla si no vas a usar Google Maps
 
-
-// Para desarrollo, puedes ponerla aquí. Para producción, considera un proxy.
+// IMPORTANTE: RESTRINGE TU API KEY EN LA CONSOLA DE OpenRouteService.
+// Asegúrate de que el dominio de tu app (ej. http://localhost:5174/*) esté permitido.
 const ORS_API_KEY = 'eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjcwNGMxOTg0NGQ1MjQ5YjliOWJhMjE0NjE0MzUyNjlmIiwiaCI6Im11cm11cjY0In0='; 
-//http://localhost:*
+
 function RouteGenerator() {
   // Estados para las coordenadas de la ruta
   const [origin, setOrigin] = useState('41.1080,1.2510'); // Ejemplo de Platja del Miracle
@@ -16,69 +16,69 @@ function RouteGenerator() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // CORRECCIÓN 1: Usar backticks (`) para el template literal
   const formatoCoordParaORS = (coordsString) => {
-    return coordsString.split(`|`).map(pair =>{
+    return coordsString.split('|').map(pair => {
       const [lat, lon] = pair.split(',');
-      return '${lon},${lat}';
-    })
+      return `${lon},${lat}`; // Usar backticks para interpolar ${lon} y ${lat}
+    }).join('|'); // Re-unir los pares con '|'
   };
 
-  // Función para obtener la ruta de la API de Google Directions
+  // Función para obtener la ruta de la API de OpenRouteService
   const fetchRoute = async () => {
     setLoading(true);
     setError(null);
     setRouteCoordinates([]); // Limpia resultados anteriores
 
-       console.log('Valor actual del estado Origin:', origin);
+    console.log('Valor actual del estado Origin:', origin);
 
-    // Codifica los parámetros de la URL
-    const params = new URLSearchParams({
-      api_key: ORS_API_KEY
-    });
-     // Los puntos se pasan directamente en la URL del endpoint
-    // ORS usa un formato diferente para los waypoints en la URL, los añadimos directamente al path o como parámetro 'points'
-    // Para simplificar, usaremos un GET con 'start', 'end' y 'waypoints' como en el ejemplo conceptual
+    // CORRECCIÓN 2: Llamar a formatoCoordParaORS para definir estas variables
     const orsOrigin = formatoCoordParaORS(origin);
     const orsDestination = formatoCoordParaORS(destination);
-    const orsWaypoints = waypoints ? formatoCoordParaORS(waypoints) : '';
-    
-    let orsUrl = `https://api.openrouteservice.org/v2/directions/foot-walking?`;
+    const orsWaypoints = waypoints ? formatoCoordParaORS(waypoints) : ''; // Manejar caso de waypoints vacíos
+
+    // Construye la URL de la solicitud a ORS
+    let orsUrl = `https://api.openrouteservice.org/v2/directions/foot-walking?`; // Aquí defines el perfil/modo
     orsUrl += `start=${orsOrigin}&`;
     orsUrl += `end=${orsDestination}`;
-      if(orsWaypoints) {
-        orsUrl += `&waypoints=${orsWaypoints}`;
-      }
-      orsUrl += `&api_key=${ORS_API_KEY}`;
+    if (orsWaypoints) {
+      orsUrl += `&waypoints=${orsWaypoints}`;
+    }
+    orsUrl += `&api_key=${ORS_API_KEY}`; // La clave API al final
 
-      console.log('URL de la solicitud a ORS:', orsUrl);
+    console.log('URL de la solicitud a ORS:', orsUrl);
+
     try {
       const response = await fetch(orsUrl, {
-        method: 'GET',
+        method: 'GET', // ORS también soporta POST, que es más seguro para API keys
         headers: {
-          'Accept' : 'application/json',
-           // 'Authorization': ORS_API_KEY
-           // Para algunos endpoints puede requerir header Authorization
+          'Accept': 'application/json',
+          // 'Authorization': ORS_API_KEY // Para algunos endpoints puede requerir header Authorization
         }
       });
 
       const data = await response.json();
 
-      if(response.ok) {
-        const orsRouteCoords= data.features[0].geometry.coordinates;
-
-        const formattedCoords = orsRouteCoords.map(coord => [coord[1],
-        coord[0]]);
-        setRouteCoordinates(formatteCoords);
-      }else {
+      if (response.ok) { // Verifica response.ok para HTTP 200-299
+        // La respuesta de ORS suele estar en data.features[0].geometry.coordinates
+        // Estos son [lon, lat], así que tendremos que invertirlos para GPX y nuestro estado
+        const orsRouteCoords = data.features[0].geometry.coordinates;
+        
+        // Invertir a [lat, lon] para el formato GPX y para setRouteCoordinates
+        const formattedCoords = orsRouteCoords.map(coord => [coord[1], coord[0]]);
+        setRouteCoordinates(formattedCoords); // CORRECCIÓN 3: Aquí estaba 'formatteCoords' en lugar de 'formattedCoords'
+      } else {
         setError(`Error en la API de ORS: ${data.error ? data.error.message : response.statusText}`);
         console.error('Respuesta de error de ORS:', data);
       }
-    }catch (err) {
+    } catch (err) {
       setError(`Error al conectar con la API de ORS: ${err.message}`);
       console.error('Error de red o fetch fallido:', err);
-    }finally {
+    } finally {
       setLoading(false);
-    };
+    }
+  };
+
   // Función para generar el contenido GPX
   const generateGpx = () => {
     if (routeCoordinates.length === 0) {
@@ -170,5 +170,7 @@ function RouteGenerator() {
       )}
     </div>
   );
-}}
+}
 export default RouteGenerator
+
+
