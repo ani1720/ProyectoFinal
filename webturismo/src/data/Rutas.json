@@ -13,6 +13,8 @@
       "Museo Nacional Arqueológico de Tarragona",
       "Aqüeducte de les Ferreres (Pont del Diable)"
     ],
+    "archivo_gpx": "/gpx/murallas_romanas.gpx",
+    "es_predeterminada": true,
     "imagen": "/src/assets/anfiteatro.jpg"
   },
   {
@@ -26,6 +28,8 @@
       "Miradores panorámicos",
       "Vegetación autóctona"
     ],
+    "archivo_gpx": "/gpx/ruta_tarragona.gpx",
+    "es_predeterminada": true,
     "imagen": "/src/assets/murallas.jpg"
   },
   {
@@ -42,6 +46,8 @@
       "Museo Nacional Arqueológico de Tarragona",
       "Aqüeducte de les Ferreres (Pont del Diable)"
     ],
+    "archivo_gpx": "/gpx/playa_miracle.gpx",
+    "es_predeterminada": true,
     "imagen": "/src/assets/balcon.jpg"
   }
 ]
