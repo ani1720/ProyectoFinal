@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import RutaList from './pages/RutaList';
+import Mapa from './pages/Mapa';
 
 import rutaTarracoImg from './assets/ruta-tarraco.png';
 import anfiteatroImg from './assets/anfiteatro.jpg';
@@ -72,6 +73,7 @@ function App() {
         />
 
         <Route path="/rutas" element={<RutaList />} />
+        <Route path="/mapa" element={<Mapa />} />
       </Routes>
 
       <Footer />

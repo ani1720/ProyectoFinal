@@ -8,6 +8,7 @@ function Header() {
       <nav className="nav-links">
         <Link to="/">HOME</Link>
         <Link to="/rutas">RUTAS</Link>
+        <Link to="/mapa">MAPAS</Link>
         {/* Agrega más rutas si las tienes */}
       </nav>
     </header>
