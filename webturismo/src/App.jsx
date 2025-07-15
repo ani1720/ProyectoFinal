@@ -9,6 +9,7 @@ import Login from "./Login";
 import Registro from "./Registro";
 import Home from "./Home";
 import RutaDetalle from "./pages/RutaDetalle";
+import Mapa from './pages/Mapa';
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="/rutas" element={<Ruta />} />
+        <Route path="/mapa" element={<Mapa />} />
       </Routes>
     </>
   );
