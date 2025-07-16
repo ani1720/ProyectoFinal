@@ -2,9 +2,13 @@ import { useState } from "react";
 import { auth } from "./firebase/firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Link } from "react-router-dom";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "./firebase/firebaseConfig";
+import { collection, query, where, getDocs } from "firebase/firestore";
 
 function Registro() {
   const [email, setEmail] = useState("");
+  const [nombreUsuario, setNombreUsuario] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [mensaje, setMensaje] = useState(null);
@@ -13,15 +17,40 @@ function Registro() {
     e.preventDefault();
     setMensaje(null);
     setError(null);
-
+  
     try {
+      // 🧠 Validar si el nombre de usuario ya está tomado
+      const usuariosRef = collection(db, "usuarios");
+      const q = query(usuariosRef, where("nombreUsuario", "==", nombreUsuario));
+      const querySnapshot = await getDocs(q);
+  
+      if (!querySnapshot.empty) {
+        setError("⚠️ El nombre de usuario ya está en uso.");
+        return; // ⛔ detenemos el registro si ya existe
+      }
+  
+      // ✅ Crear usuario en Auth
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
+      const uid = userCredential.user.uid;
+  
+      // 🗂️ Guardar datos extra en Firestore
+      await setDoc(doc(db, "usuarios", uid), {
+        nombreUsuario,
+        email,
+        fechaRegistro: new Date(),
+        rol: "turista",
+      });
+  
       setMensaje(`✅ Usuario creado: ${userCredential.user.email}`);
+      setEmail("");
+      setPassword("");
+      setNombreUsuario("");
     } catch (err) {
+      // 🎯 Manejador de errores personalizado
       if (err.code === "auth/email-already-in-use") {
         setError("⚠️ Este correo ya está registrado.");
       } else if (err.code === "auth/invalid-email") {
@@ -44,6 +73,15 @@ function Registro() {
             placeholder="Correo electrónico"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
+            style={{ padding: "0.5rem", margin: "0.5rem", width: "250px" }}
+          />
+          <br />
+          <input
+            type="text"
+            placeholder="Nombre de usuario"
+            value={nombreUsuario}
+            onChange={(e) => setNombreUsuario(e.target.value)}
             required
             style={{ padding: "0.5rem", margin: "0.5rem", width: "250px" }}
           />

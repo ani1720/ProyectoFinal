@@ -37,6 +37,36 @@ const Mapa = () => {
   nombre: "Muralla romana de Tarragona",
   descripcion: "Cerca militar de origen romano que rodea el casco antiguo, conserva tramos, torres y una puerta original.",
   coordenadas: [41.11880167976933, 1.2550116900644226]
+},
+{
+  nombre: "Foro de la Colonia",
+  descripcion: "Centro administrativo y religioso de la antigua Tarraco durante la época romana.",
+  coordenadas: [41.1162, 1.2564]
+},
+{
+  nombre: "Foro Provincial de Tarraco",
+  descripcion: "Gran plaza monumental construida bajo el emperador Vespasiano.",
+  coordenadas: [41.1170, 1.2578]
+},
+{
+  nombre: "Torre del Pretorio y Paseo Arqueológico",
+  descripcion: "Torre romana que conecta el circo con el foro provincial y permite vistas panorámicas.",
+  coordenadas: [41.1167, 1.2572]
+},
+{
+  nombre: "Acueducto de les Ferreres (Puente del Diablo)",
+  descripcion: "Majestuoso acueducto romano que transportaba agua desde el río Francolí.",
+  coordenadas: [41.1543, 1.2443]
+},
+{
+  nombre: "Necrópolis Paleocristiana",
+  descripcion: "Uno de los cementerios cristianos más importantes del mundo romano occidental.",
+  coordenadas: [41.1170, 1.2501]
+},
+{
+  nombre: "Museo Nacional Arqueológico de Tarragona",
+  descripcion: "Colección de piezas romanas halladas en la ciudad, incluyendo mosaicos y esculturas.",
+  coordenadas: [41.1161, 1.2576]
 }
 
 

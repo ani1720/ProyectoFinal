@@ -7,13 +7,16 @@ import Header from "./Header";
 import Login from "./Login";
 import Registro from "./Registro";
 import Home from "./Home";
+import RutaDetalle from "./pages/RutaDetalle";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "./firebase/firebaseConfig";
 import Mapa from './pages/Mapa';
-import GPXTest from "./components/GPXTest"
-
+import Eventos from './pages/Eventos';
 
 
 function App() {
   const [usuario, setUsuario] = useState(null);
+  const [nombreUsuario, setNombreUsuario] = useState("");
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -28,10 +31,24 @@ function App() {
     return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    const obtenerNombreUsuario = async () => {
+      if (usuario) {
+        const ref = doc(db, "usuarios", usuario.uid);
+        const snap = await getDoc(ref);
+        if (snap.exists()) {
+          setNombreUsuario(snap.data().nombreUsuario);
+        }
+      }
+    };
+    obtenerNombreUsuario();
+  }, [usuario]);
+
   return (
     <>
       <Header
         usuario={usuario}
+        nombreUsuario={nombreUsuario}
         cerrarSesion={() => {
           import("firebase/auth").then(({ signOut }) => signOut(auth));
         }}
@@ -43,8 +60,7 @@ function App() {
         <Route path="/registro" element={<Registro />} />
         <Route path="/rutas/*" element={<Ruta />} />
         <Route path="/mapa" element={<Mapa />} />
-        <Route path="/gpx-test" element={<GPXTest/>}/>
-        {/* <Route path="/ors-test" element={<ORSMap />} /> */}
+        <Route path="/eventos" element={<Eventos />} />
       </Routes>
     </>
   );
