@@ -2,22 +2,24 @@ import React, { useState } from "react";
 import rutas from "../data/rutas.json";
 import "./RutaList.css";
 import RutaFiltro from "../components/RutaFiltro";
+import { Link } from "react-router-dom";
 
 const RutaList = () => {
-  const [filtroActivo, setFiltroActivo] = useState("todas");
-  const rutasFiltradas =
-    filtroActivo === "todas"
-      ? rutas
-      : rutas.filter((ruta) => ruta.tipo === filtroActivo);
-  
-      return (
+  // const [filtroActivo, setFiltroActivo] = useState("todas");
+  // const rutasFiltradas =
+  //   filtroActivo === "todas"
+  //     ? rutas
+  //     : rutas.filter((ruta) => ruta.tipo === filtroActivo);
+
+  return (
     <div className="pantalla-completa">
       <div className="vertical-layout">
         <h1>Explora Rutas en Tarragona</h1>
-        <RutaFiltro
-        filtroActivo={filtroActivo}
-        setFiltroActivo={setFiltroActivo}
-        />
+        {/* <RutaFiltro
+          filtroActivo={filtroActivo}
+          setFiltroActivo={setFiltroActivo}
+        /> */}
+
         <section className="rutas-diagonales">
           {rutas.slice(0, 3).map((ruta, index) => (
             <div
@@ -30,7 +32,20 @@ const RutaList = () => {
                   : "normal"
               }`}
             >
-              <img src={ruta.imagen} alt={ruta.nombre} />
+              <Link to={`/ruta/${ruta.id}`} >
+                {/* {rutasFiltradas.length > 0 ? (
+                  rutasFiltradas.map((ruta) => (
+                    <RutaCard key={ruta.id} ruta={ruta} />
+                  ))
+                ) : (
+                  <p>No hay rutas disponibles para este tipo.</p>
+                )} */}
+
+              <img src={ruta.imagen} 
+              alt={ruta.nombre} 
+              style={{cursor: "pointer"}}/>
+              </Link>
+
               <div className="contenido">
                 <h2>{ruta.nombre}</h2>
                 <p>
