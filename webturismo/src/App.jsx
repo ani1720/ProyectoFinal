@@ -8,6 +8,8 @@ import Login from "./Login";
 import Registro from "./Registro";
 import Home from "./Home";
 import Mapa from './pages/Mapa';
+import GPXTest from "./components/GPXTest"
+
 
 
 function App() {
@@ -41,6 +43,8 @@ function App() {
         <Route path="/registro" element={<Registro />} />
         <Route path="/rutas/*" element={<Ruta />} />
         <Route path="/mapa" element={<Mapa />} />
+        <Route path="/gpx-test" element={<GPXTest/>}/>
+        {/* <Route path="/ors-test" element={<ORSMap />} /> */}
       </Routes>
     </>
   );
