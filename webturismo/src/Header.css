@@ -43,3 +43,48 @@
   gap: 1rem;
 }
 
+.auth-section {
+  position: relative;
+}
+
+.usuario-trigger {
+  background: none;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: #333;
+}
+
+.usuario-dropdown {
+  position: absolute;
+  top: 100%; /* justo debajo del botón */
+  right: 0;
+  transform: translateY(10px); /* se desplaza hacia abajo sin ocupar espacio */
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  z-index: 1000;
+  max-width: 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+
+.usuario-dropdown a,
+.usuario-dropdown button {
+  text-align: left;
+  background: none;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  font-size: 0.95rem;
+}
+
+.usuario-dropdown a:hover,
+.usuario-dropdown button:hover {
+  color: #4CAF50;
+}
