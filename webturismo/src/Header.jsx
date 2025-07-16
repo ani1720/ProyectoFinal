@@ -13,6 +13,7 @@ function Header({ usuario, cerrarSesion }) {
         <Link to="/eventos">EVENTOS</Link>
         <Link to="/mapa">MAP</Link>
         <Link to="/rutas">RUTAS</Link>
+        
       </nav>
       <div className="auth-buttons">
         {usuario ? (

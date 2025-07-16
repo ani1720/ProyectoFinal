@@ -10,6 +10,7 @@ import Registro from "./Registro";
 import Home from "./Home";
 import RutaDetalle from "./pages/RutaDetalle";
 import Mapa from './pages/Mapa';
+import Eventos from './pages/Eventos';
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
         <Route path="/registro" element={<Registro />} />
         <Route path="/rutas" element={<Ruta />} />
         <Route path="/mapa" element={<Mapa />} />
+        <Route path="/eventos" element={<Eventos />} />
       </Routes>
     </>
   );
