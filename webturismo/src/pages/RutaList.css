@@ -12,6 +12,7 @@
   padding: 0;
   gap: 1rem; /* 🔹 Separación entre tarjetas */
   overflow: hidden;
+  margin-bottom: 10%;
 }
 
 .tarjeta-diagonal {

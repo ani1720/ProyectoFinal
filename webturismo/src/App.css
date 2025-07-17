@@ -36,14 +36,6 @@ html, body {
   text-align: center;
 }
 
-.mapa img {
-  width: 100%;
-  max-width: 350px; /* reduce este valor según lo que necesites */
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
 .info {
   flex: 1;
 }

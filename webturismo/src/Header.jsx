@@ -2,6 +2,7 @@ import "./Header.css";
 import { createPortal } from "react-dom";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
+import Logo from "./assets/Logo2.png"
 
 function Header({ usuario, nombreUsuario, cerrarSesion }) {
   const [menuAbierto, setMenuAbierto] = useState(false);
@@ -33,7 +34,9 @@ function Header({ usuario, nombreUsuario, cerrarSesion }) {
 
   return (
     <header className="navbar">
-      <div className="logo">LG</div>
+      <div className="logo">
+        <img src={Logo} alt="Logo TgoTours" />
+      </div>
 
       <nav className="nav-links">
         <Link to="/">HOME</Link>
