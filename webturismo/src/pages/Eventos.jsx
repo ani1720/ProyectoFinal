@@ -98,18 +98,18 @@ function Eventos() {
           <div className="evento-grid">
             {grupo.eventos.map((evento, i) => (
               evento.imagen ? (
-               <Link
-  to={`/eventos/${encodeURIComponent(evento.titulo)}`}
-  key={i}
-  className="evento-card"
-  style={{ textDecoration: "none", color: "inherit" }}
->
-  <img src={evento.imagen} alt={evento.titulo} />
-  <div className="evento-info">
-    <h3>{evento.titulo}</h3>
-    <p>{evento.descripcion}</p>
-  </div>
-</Link>
+                <Link
+                  to={`/eventos/${encodeURIComponent(evento.titulo)}`}
+                  key={i}
+                  className="evento-card"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <img src={evento.imagen} alt={evento.titulo} />
+                  <div className="evento-info">
+                    <h3>{evento.titulo}</h3>
+                    <p>{evento.descripcion}</p>
+                  </div>
+                </Link>
 
               ) : (
                 <div className="evento-card evento-sin-imagen" key={i}>
