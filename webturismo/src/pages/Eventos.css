@@ -66,3 +66,13 @@
 .evento-card.evento-grande img {
   height: 700px; /* o más si lo deseas */
 }
+.colla-principal img {
+  margin-bottom: 1rem;
+  border-radius: 10px;
+}
+
+.slider-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}

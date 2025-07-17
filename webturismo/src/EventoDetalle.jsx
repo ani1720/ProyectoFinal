@@ -1,5 +1,6 @@
-import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link } from "react-router-dom";
+import { useState } from "react";
+import './pages/Eventos.css';
 
 import hoguera from './assets/hoguera.jpg';
 import fuegos from './assets/fuegos.jpg';
@@ -45,20 +46,40 @@ const eventosMensuales = [
   }
 ];
 
-const EventoDetalle = () => {
+const lugaresRelacionados = [
+  {
+    nombre: "Anfiteatro",
+    imagen: castells,
+    resumen: "Antiguo anfiteatro romano frente al mar.",
+    detalles: "Este sitio es uno de los puntos más destacados de la ruta turística por Tarragona. Ideal para visitas culturales, actividades al aire libre y vistas panorámicas.",
+    horario: "10:00 - 18:00 (todos los días)",
+    ubicacion: "Tarragona centro histórico"
+  },
+  {
+    nombre: "Catedral",
+    imagen: campdemart,
+    resumen: "Imponente catedral románica-gótica en la parte alta.",
+    detalles: "Uno de los monumentos más emblemáticos de Tarragona, ubicada en el corazón del casco antiguo.",
+    horario: "10:00 - 19:00 (lunes a sábado)",
+    ubicacion: "Pla de la Seu"
+  }
+];
+
+function EventoDetalle() {
   const { titulo } = useParams();
   const tituloDecodificado = decodeURIComponent(titulo);
 
-  // Buscar el evento por título
   const eventoEncontrado = eventosMensuales
     .flatMap((grupo) => grupo.eventos)
     .find((evento) => evento.titulo === tituloDecodificado);
+
+  const [selectedLugar, setSelectedLugar] = useState(lugaresRelacionados[0]);
 
   if (!eventoEncontrado) {
     return (
       <div style={{ padding: "2rem", textAlign: "center" }}>
         <h2>Evento no encontrado</h2>
-        <Link to="/eventos">Volver a eventos</Link>
+        <Link to="/eventos">Volver</Link>
       </div>
     );
   }
@@ -70,11 +91,59 @@ const EventoDetalle = () => {
       <img
         src={eventoEncontrado.imagen}
         alt={eventoEncontrado.titulo}
-        style={{ maxWidth: "100%", margin: "1rem 0" }}
+        style={{ width: "100%", maxHeight: "400px", objectFit: "cover", margin: "1rem 0" }}
       />
       <p style={{ fontSize: "1.2rem" }}>{eventoEncontrado.descripcion}</p>
+
+      {/* Sección de lugares relacionados */}
+      <div style={{ marginTop: "3rem" }}>
+        <h2>Lugares relacionados</h2>
+
+        <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap", marginBottom: "2rem" }}>
+          {lugaresRelacionados.map((lugar, i) => (
+            <img
+              key={i}
+              src={lugar.imagen}
+              alt={lugar.nombre}
+              onClick={() => setSelectedLugar(lugar)}
+              style={{
+                width: "120px",
+                height: "90px",
+                borderRadius: "10px",
+                cursor: "pointer",
+                border: lugar.nombre === selectedLugar.nombre ? "3px solid #0077cc" : "2px solid transparent",
+                objectFit: "cover"
+              }}
+            />
+          ))}
+        </div>
+
+        <div style={{
+          display: "flex",
+          gap: "1.5rem",
+          padding: "1.5rem",
+          borderRadius: "15px",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+          backgroundColor: "#fff",
+          flexWrap: "wrap",
+          alignItems: "center"
+        }}>
+          <img
+            src={selectedLugar.imagen}
+            alt={selectedLugar.nombre}
+            style={{ width: "240px", borderRadius: "12px", objectFit: "cover" }}
+          />
+          <div style={{ maxWidth: "500px" }}>
+            <h3 style={{ marginBottom: "0.5rem" }}>{selectedLugar.nombre}</h3>
+            <p>{selectedLugar.resumen}</p>
+            <p><strong>Detalles:</strong> {selectedLugar.detalles}</p>
+            <p><strong>Horario:</strong> {selectedLugar.horario}</p>
+            <p><strong>Ubicación:</strong> {selectedLugar.ubicacion}</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
-};
+}
 
 export default EventoDetalle;
