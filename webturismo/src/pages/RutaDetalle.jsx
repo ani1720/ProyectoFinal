@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import rutas from "../data/rutas.json";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-gpx";
@@ -9,16 +9,17 @@ const RutaDetalle = () => {
   const { id } = useParams();
   const ruta = rutas.find((r) => r.id === parseInt(id));
   const mapRef = useRef(null);
+  const [comentarios, setComentarios] = useState([]);
+  const [nuevoComentario, setNuevoComentario] = useState("");
 
   useEffect(() => {
     if (!ruta || mapRef.current) return;
 
-    const map = L.map("map").setView([41.12, 1.26], 13);
-    mapRef.current = map;
+    mapRef.current = L.map("map").setView([41.12, 1.26], 13);
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: "&copy; OpenStreetMap contributors",
-    }).addTo(map);
+    }).addTo(mapRef.current);
 
     new L.GPX(ruta.archivo_gpx, {
       async: true,
@@ -34,25 +35,20 @@ const RutaDetalle = () => {
       },
     })
       .on("loaded", function (e) {
-        map.fitBounds(e.target.getBounds());
+        mapRef.current.fitBounds(e.target.getBounds());
       })
-      .addTo(map);
-
-    // Limpieza cuando el componente se desmonta
-    return () => {
-      map.remove();
-      mapRef.current = null;
-    };
+      .addTo(mapRef.current);
   }, [ruta]);
 
   if (!ruta) return <p>Ruta no encontrada</p>;
 
-    const publicarComentario = () => {
+  const publicarComentario = () => {
     if (nuevoComentario.trim() === "") return;
     setComentarios([...comentarios, nuevoComentario.trim()]);
     setNuevoComentario("");
   };
- return (
+
+  return (
     <div className="ruta-detalle-container" style={{ padding: "1rem" }}>
       <h2>{ruta.nombre}</h2>
       <span className={`badge ${ruta.tipo}`}>{ruta.tipo}</span>
