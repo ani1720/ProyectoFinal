@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import rutas from "../data/rutas.json";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-gpx";
@@ -8,11 +8,13 @@ import "leaflet-gpx";
 const RutaDetalle = () => {
   const { id } = useParams();
   const ruta = rutas.find((r) => r.id === parseInt(id));
+  const mapRef = useRef(null);
 
   useEffect(() => {
-    if (!ruta) return;
+    if (!ruta || mapRef.current) return;
 
     const map = L.map("map").setView([41.12, 1.26], 13);
+    mapRef.current = map;
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: "&copy; OpenStreetMap contributors",
@@ -36,8 +38,10 @@ const RutaDetalle = () => {
       })
       .addTo(map);
 
+    // Limpieza cuando el componente se desmonta
     return () => {
       map.remove();
+      mapRef.current = null;
     };
   }, [ruta]);
 

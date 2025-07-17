@@ -6,6 +6,7 @@ import plazaReiImg from "./assets/plaza-rei.jpg";
 import balconImg from "./assets/balcon.jpg";
 import { useState } from "react";
 import "./App.css";
+import MapView from "./WebView";
 
 function Home() {
   const lugares = [
@@ -78,7 +79,7 @@ function Home() {
 
       <div className="mapa">
         <h2>RUTA HISTÓRICA ANTIGUO TARRACO</h2>
-        <img src={rutaTarracoImg} alt="Ruta Tarraco" />
+        <MapView/>
       </div>
 
       {/* <div className="App">

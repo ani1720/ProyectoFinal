@@ -63,7 +63,7 @@ function App() {
         <Route path="/mapa" element={<Mapa />} />
         <Route path="/eventos" element={<Eventos />} />"
       </Routes>
-      <Footer/>
+      <Footer />
     </>
   );
 }
