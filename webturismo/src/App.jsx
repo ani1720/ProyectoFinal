@@ -14,13 +14,8 @@ import Mapa from './pages/Mapa';
 import Eventos from './pages/Eventos';
 import Footer from "./components/Footer";
 import EventoDetalle from './EventoDetalle'; // ajusta la ruta si es necesario
-<<<<<<< Updated upstream
 import About from './pages/About';
 import Perfil from "./pages/Perfil";
-=======
-import Perfil from "./pages/Perfil";
-
->>>>>>> Stashed changes
 
 
 function App() {
@@ -71,11 +66,8 @@ function App() {
         <Route path="/mapa" element={<Mapa />} />
         <Route path="/eventos" element={<Eventos />} />
         <Route path="/eventos/:titulo" element={<EventoDetalle />} />
-<<<<<<< Updated upstream
         <Route path="/about" element={<About/>} />
         <Route path="/perfil" element={<Perfil />} />
-=======
->>>>>>> Stashed changes
         <Route path="/perfil" element={<Perfil />} />
       </Routes>
       <Footer />
