@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
-import { obtenerRutaORS } from "../utils/ors";
+import { obtenerRutaORS } from "../utils/ORS"
 
 // Tu JSON de coordenadas (ejemplo)
 const coordenadasJSON = [
