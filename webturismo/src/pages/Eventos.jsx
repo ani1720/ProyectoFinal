@@ -1,5 +1,7 @@
 import React from 'react';
 import './Eventos.css';
+import { Link } from "react-router-dom";
+
 
 import hoguera from '../assets/hoguera.jpg';
 import fuegos from '../assets/fuegos.jpg';
@@ -96,13 +98,19 @@ function Eventos() {
           <div className="evento-grid">
             {grupo.eventos.map((evento, i) => (
               evento.imagen ? (
-                <div className="evento-card" key={i}>
+                <Link
+                  to={`/eventos/${encodeURIComponent(evento.titulo)}`}
+                  key={i}
+                  className="evento-card"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
                   <img src={evento.imagen} alt={evento.titulo} />
                   <div className="evento-info">
                     <h3>{evento.titulo}</h3>
                     <p>{evento.descripcion}</p>
                   </div>
-                </div>
+                </Link>
+
               ) : (
                 <div className="evento-card evento-sin-imagen" key={i}>
                   <div className="evento-info no-img">

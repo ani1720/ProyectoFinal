@@ -22,7 +22,7 @@ const RutaDetalle = () => {
     new L.GPX(ruta.archivo_gpx, {
       async: true,
       polyline_options: {
-        color: "red",
+        color: "blue",
         weight: 4,
         opacity: 0.8,
       },
@@ -42,7 +42,7 @@ const RutaDetalle = () => {
 
   return (
     <div>
-      <h2>{ruta.titulo}</h2>
+      <h2>{ruta.nombre}</h2>
       <p>{ruta.descripcion}</p>
       <span className={`badge ${ruta.tipo}`}>{ruta.tipo}</span>
       <div id="map" style={{ height: "80vh", marginTop: "1rem" }}></div>

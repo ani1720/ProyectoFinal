@@ -12,7 +12,8 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "./firebase/firebaseConfig";
 import Mapa from './pages/Mapa';
 import Eventos from './pages/Eventos';
-
+import Footer from "./components/Footer";
+import EventoDetalle from './EventoDetalle'; // ajusta la ruta si es necesario
 
 
 function App() {
@@ -61,8 +62,10 @@ function App() {
         <Route path="/registro" element={<Registro />} />
         <Route path="/rutas/*" element={<Ruta />} />
         <Route path="/mapa" element={<Mapa />} />
-        <Route path="/eventos" element={<Eventos />} />
+        <Route path="/eventos" element={<Eventos />} />"
+        <Route path="/eventos/:titulo" element={<EventoDetalle />} />
       </Routes>
+      <Footer />
     </>
   );
 }

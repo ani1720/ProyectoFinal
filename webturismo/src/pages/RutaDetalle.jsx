@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import rutas from "../data/rutas.json";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-gpx";
@@ -8,15 +8,18 @@ import "leaflet-gpx";
 const RutaDetalle = () => {
   const { id } = useParams();
   const ruta = rutas.find((r) => r.id === parseInt(id));
+  const mapRef = useRef(null);
+  const [comentarios, setComentarios] = useState([]);
+  const [nuevoComentario, setNuevoComentario] = useState("");
 
   useEffect(() => {
-    if (!ruta) return;
+    if (!ruta || mapRef.current) return;
 
-    const map = L.map("map").setView([41.12, 1.26], 13);
+    mapRef.current = L.map("map").setView([41.12, 1.26], 13);
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: "&copy; OpenStreetMap contributors",
-    }).addTo(map);
+    }).addTo(mapRef.current);
 
     new L.GPX(ruta.archivo_gpx, {
       async: true,
@@ -32,23 +35,50 @@ const RutaDetalle = () => {
       },
     })
       .on("loaded", function (e) {
-        map.fitBounds(e.target.getBounds());
+        mapRef.current.fitBounds(e.target.getBounds());
       })
-      .addTo(map);
-
-    return () => {
-      map.remove();
-    };
+      .addTo(mapRef.current);
   }, [ruta]);
 
   if (!ruta) return <p>Ruta no encontrada</p>;
 
+  const publicarComentario = () => {
+    if (nuevoComentario.trim() === "") return;
+    setComentarios([...comentarios, nuevoComentario.trim()]);
+    setNuevoComentario("");
+  };
+
   return (
-    <div>
+    <div className="ruta-detalle-container" style={{ padding: "1rem" }}>
       <h2>{ruta.nombre}</h2>
-      <p>{ruta.descripcion}</p>
       <span className={`badge ${ruta.tipo}`}>{ruta.tipo}</span>
-      <div id="map" style={{ height: "80vh", marginTop: "1rem" }}></div>
+      <p><strong>Duración:</strong> {ruta.duracion}</p>
+      <p>{ruta.descripcion}</p>
+
+      <h3>Puntos de interés:</h3>
+      <ul>
+        {ruta.contenido.map((punto, idx) => (
+          <li key={idx}>{punto}</li>
+        ))}
+      </ul>
+
+      <h3>Mapa de la ruta</h3>
+      <div id="map" style={{ height: "70vh", marginBottom: "2rem" }}></div>
+
+      <h3>Foro de la ruta</h3>
+      <textarea
+        value={nuevoComentario}
+        onChange={(e) => setNuevoComentario(e.target.value)}
+        placeholder="Escribe tu comentario..."
+        rows={3}
+        style={{ width: "100%", padding: "0.5rem", marginBottom: "0.5rem" }}
+      />
+      <button onClick={publicarComentario}>Publicar</button>
+      <ul style={{ marginTop: "1rem" }}>
+        {comentarios.map((comentario, idx) => (
+          <li key={idx} style={{ marginBottom: "0.3rem" }}>🗨 {comentario}</li>
+        ))}
+      </ul>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-const tipos = ["todas", "montaña", "histórica", "playa"];
+const tipos = ["Todas", "Montaña", "Histórica", "Playa"];
 
 const RutaFiltro = ({ filtroActivo, setFiltroActivo }) => {
   return (

@@ -2,7 +2,7 @@
   {
     "id": 1,
     "nombre": "Ruta Romana",
-    "tipo": "histórica",
+    "tipo": "Histórica",
     "descripcion": "Descubre los restos de Tarraco.",
     "duracion": "2h",
     "contenido": [
@@ -20,7 +20,7 @@
   {
     "id": 2,
     "nombre": "Ruta de Montaña",
-    "tipo": "montaña",
+    "tipo": "Montaña",
     "descripcion": "Conecta con la naturaleza.",
     "duracion": "3h",
     "contenido": [
@@ -30,12 +30,12 @@
     ],
     "archivo_gpx": "/gpx/ruta_tarragona.gpx",
     "es_predeterminada": true,
-    "imagen": "/src/assets/murallas.jpg"
+    "imagen": "/src/assets/montaña.jpeg"
   },
   {
     "id": 3,
-    "nombre": "Ruta de Playa",
-    "tipo": "playa",
+    "nombre": "Ruta de Playera",
+    "tipo": "Playa",
     "descripcion": "Relájate junto al mar.",
     "duracion": "1.5h",
     "contenido": [

@@ -3,6 +3,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-gpx";
 
+
 const MapView = () => {
   const mapRef = useRef(null);
 
@@ -17,7 +18,7 @@ const MapView = () => {
       attribution: "&copy; OpenStreetMap contributors",
     }).addTo(mapRef.current);
 
-    new L.GPX("/gpx/ruta_tarragona.gpx", {
+    new L.GPX("/gpx/murallas_romanas.gpx", {
       async: true,
       polyline_options: {
         color: "blue",
