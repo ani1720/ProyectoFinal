@@ -15,6 +15,7 @@ import SantaTecla from '../assets/SantaTecla.jpg';
 import URSI from '../assets/URSI.jpg';
 
 
+
 const eventosMensuales = [
   {
     mes: "Junio",

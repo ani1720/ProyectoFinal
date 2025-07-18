@@ -14,7 +14,7 @@ import Mapa from './pages/Mapa';
 import Eventos from './pages/Eventos';
 import Footer from "./components/Footer";
 import EventoDetalle from './EventoDetalle'; // ajusta la ruta si es necesario
-import RutaTest from "./components/RutaTest";
+
 
 
 function App() {
