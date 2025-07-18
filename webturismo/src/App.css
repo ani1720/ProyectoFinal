@@ -151,6 +151,7 @@ html, body {
   padding: 2rem;
   box-sizing: border-box;
   background-color: #f0f0f0; /* opcional: fondo suave */
+  color: rgb(0, 0, 0);
 }
 
 .perfil-page {
