@@ -1,9 +1,10 @@
-.page-content {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  height: calc(100vh - 80px); /* altura menos el header */
-  padding: 2rem;
+/* Reset general */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* 🔒 Evita scroll horizontal */
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .image-box {
@@ -36,9 +37,11 @@
 }
 
 .mapa img {
-  max-width: 100%;
+  width: 100%;
+  max-width: 350px; /* reduce este valor según lo que necesites */
   height: auto;
   border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 .info {
@@ -53,4 +56,103 @@
 .info p {
   font-size: 1.2rem;
   margin: 1rem 0;
+}
+.slider-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 20rem;
+}
+
+.slider-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 1rem;
+}
+
+.slider-item {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  opacity: 0.7;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  opacity: 0.7;
+  transform: scale(1);
+  border-radius: 8px;
+}
+
+.slider-item:hover,
+.slider-item.active {
+  transform: scale(1.2);
+  opacity: 1;
+  border: 3px solid #4CAF50;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.card-detalle {
+  display: flex;
+  gap: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  padding: 2.5rem;
+  margin: 3rem auto;
+  max-width: 1200px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.card-imagen img {
+  width: 300px;
+  max-height: 280px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.card-info {
+  flex: 1;
+  min-width:300px;
+}
+
+.card-info h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.card-info p {
+  font-size: 1.15rem;
+  margin: 0.6rem 0;
+  line-height: 1.6;
+}
+
+#root {
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-page {
+  width: 90%;
+  max-width: 600px; /* ⬅️ ampliamos el ancho para una mejor visualización */
+  margin: 4rem auto;
+  padding: 2rem;
+  text-align: center;
+  background-color: #ffffff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  box-sizing: border-box; /* 🧩 asegura que el padding no desborde el ancho */
+}
+
+.full-page {
+  width: 100%;
+  min-height: calc(100vh - 80px); /* altura total menos el header si es fijo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  box-sizing: border-box;
+  background-color: #f0f0f0; /* opcional: fondo suave */
 }
