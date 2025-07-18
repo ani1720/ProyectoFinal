@@ -71,17 +71,20 @@ nav a:hover {
   color: #333;
 }
 
+.usuario-menu {
+  position: relative;
+  display: inline-block;
+}
 .usuario-dropdown {
   position: absolute;
-  top: 100%; /* justo debajo del botón */
+  top: 100%;
   right: 0;
-  transform: translateY(10px); /* se desplaza hacia abajo sin ocupar espacio */
-  background-color: #fff;
-  border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: white;
   padding: 1rem;
-  z-index: 1000;
-  max-width: 250px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+  min-width: 180px;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -93,13 +96,15 @@ nav a:hover {
   text-align: left;
   background: none;
   border: none;
-  color: #333;
+  padding: 0.5rem;
   cursor: pointer;
-  padding: 0.5rem 0;
-  font-size: 0.95rem;
+  font-size: 1rem;
+  text-decoration: none;
+  color: #333;
 }
 
 .usuario-dropdown a:hover,
 .usuario-dropdown button:hover {
-  color: #4CAF50;
+  background-color: #f0f0f0;
+  border-radius: 4px;
 }

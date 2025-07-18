@@ -14,6 +14,8 @@ import Eventos from './pages/Eventos';
 import Footer from "./components/Footer";
 import EventoDetalle from './EventoDetalle'; // ajusta la ruta si es necesario
 import About from './pages/About';
+import Perfil from "./pages/Perfil";
+
 
 function App() {
   const [usuario, setUsuario] = useState(null);
@@ -61,9 +63,11 @@ function App() {
         <Route path="/registro" element={<Registro />} />
         <Route path="/rutas/*" element={<Ruta />} />
         <Route path="/mapa" element={<Mapa />} />
-        <Route path="/eventos" element={<Eventos />} />"
+        <Route path="/eventos" element={<Eventos />} />
         <Route path="/eventos/:titulo" element={<EventoDetalle />} />
         <Route path="/about" element={<About/>} />
+        <Route path="/perfil" element={<Perfil />} />
+        <Route path="/perfil" element={<Perfil />} />
       </Routes>
       <Footer />
     </>

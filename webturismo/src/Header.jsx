@@ -2,7 +2,7 @@ import "./Header.css";
 import { createPortal } from "react-dom";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
-import Logo from "./assets/Logo2.png"
+import Logo from "./assets/Logo2.png";
 
 function Header({ usuario, nombreUsuario, cerrarSesion }) {
   const [menuAbierto, setMenuAbierto] = useState(false);
@@ -12,7 +12,7 @@ function Header({ usuario, nombreUsuario, cerrarSesion }) {
   const dropdownRef = useRef();
 
   const [triggerPos, setTriggerPos] = useState({ top: 0, left: 0 });
-  const [triggerHeight, setTriggerHeight] = useState(0);  
+  const [triggerHeight, setTriggerHeight] = useState(0);
   // Cerrar menú si clic fuera
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -44,7 +44,6 @@ function Header({ usuario, nombreUsuario, cerrarSesion }) {
         <Link to="/eventos">EVENTOS</Link>
         <Link to="/mapa">MAP</Link>
         <Link to="/rutas">RUTAS</Link>
-        
       </nav>
 
       <div
@@ -61,33 +60,23 @@ function Header({ usuario, nombreUsuario, cerrarSesion }) {
               {nombreUsuario} ▼
             </button>
 
-            {menuAbierto &&
-              createPortal(
-                <div
-                  className="usuario-dropdown"
-                  ref={dropdownRef}
-                  style={{
-                    position: "absolute",
-                    top: `${triggerPos.top + triggerHeight}px`,
-                    left: triggerPos.left,
+            {menuAbierto && (
+              <div className="usuario-dropdown">
+                <Link to="/perfil">👤 Mi perfil</Link>
+                <Link to="/rutas-guardadas">🗺️ Rutas guardadas</Link>
+                <Link to="/restaurantes-guardados">
+                  🍽️ Restaurantes guardados
+                </Link>
+                <button
+                  onClick={() => {
+                    cerrarSesion();
+                    navigate("/login");
                   }}
                 >
-                  <Link to="/perfil">👤 Mi perfil</Link>
-                  <Link to="/rutas-guardadas">🗺️ Rutas guardadas</Link>
-                  <Link to="/restaurantes-guardados">
-                    🍽️ Restaurantes guardados
-                  </Link>
-                  <button
-                    onClick={() => {
-                      cerrarSesion();
-                      navigate("/login");
-                    }}
-                  >
-                    🚪 Cerrar sesión
-                  </button>
-                </div>,
-                document.getElementById("menu-portal-root")
-              )}
+                  🚪 Cerrar sesión
+                </button>
+              </div>
+            )}
           </div>
         ) : (
           <Link to="/login">
@@ -98,5 +87,4 @@ function Header({ usuario, nombreUsuario, cerrarSesion }) {
     </header>
   );
 }
-
 export default Header;
