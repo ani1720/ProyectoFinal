@@ -3,7 +3,7 @@ import Logo from "../assets/Logo2.png"
 
 const About = () => {
   return (
-    <div className="">
+    <div style={{ padding: "2rem", maxWidth: "800px", margin: "auto" }}>
       <h1><img src={Logo} alt="Logo de la web" /></h1>
       <p>
         Bienvenido a <strong>Tarraco Explorer</strong>, una plataforma pensada para ayudarte a
