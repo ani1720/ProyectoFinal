@@ -1,30 +1,4 @@
-import { useEffect } from "react";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
-
-import { obtenerRutaORS } from "../utils/ORS"
-
-// Tu JSON de coordenadas (ejemplo)
-const coordenadasJSON = [
-  
-  [
-    1.030583,
-    41.253727,
-    930.246
-  ],
-  [
-    1.030484,
-    41.253703,
-    960.988
-  ],
-  [
-    1.030677,
-    41.253651,
-    960.916
-  ],
-];
-
-const ORSMap = () => {
+const ORSMap = ({ puntosInteres = [] }) => {
   useEffect(() => {
     const initMap = async () => {
       const map = L.map("ors-map").setView([41.12, 1.26], 14);
@@ -33,7 +7,15 @@ const ORSMap = () => {
         attribution: "&copy; OpenStreetMap contributors",
       }).addTo(map);
 
-      const rutaGeoJSON = await obtenerRutaORS(coordenadasJSON);
+      // Mostrar marcadores de interés
+      puntosInteres.forEach((punto) => {
+        const marker = L.marker([punto.coordenadas[1], punto.coordenadas[0]]).addTo(map);
+        marker.bindPopup(`<b>${punto.nombre}</b><br>${punto.descripcion}`);
+      });
+
+      // Ruta desde puntos de interés
+      const coordenadasRuta = puntosInteres.map((p) => p.coordenadas);
+      const rutaGeoJSON = await obtenerRutaORS(coordenadasRuta);
 
       if (rutaGeoJSON) {
         L.geoJSON(rutaGeoJSON, {
@@ -47,7 +29,7 @@ const ORSMap = () => {
     };
 
     initMap();
-  }, []);
+  }, [puntosInteres]);
 
   return <div id="ors-map" style={{ height: "80vh", width: "100%" }} />;
 };

@@ -1,22 +1,23 @@
 [
-  {
-    "id": 1,
-    "nombre": "Ruta Romana",
-    "tipo": "Histórica",
-    "descripcion": "Descubre los restos de Tarraco.",
-    "duracion": "2h",
-    "contenido": [
-      "Anfiteatro romano de Tarragona",
-      "Foro de la Colonia",
-      "Murallas romanas de Tarragona",
-      "Circo romano",
-      "Museo Nacional Arqueológico de Tarragona",
-      "Aqüeducte de les Ferreres (Pont del Diable)"
-    ],
-    "archivo_gpx": "/gpx/murallas_romanas.gpx",
-    "es_predeterminada": true,
-    "imagen": "/src/assets/anfiteatro.jpg"
-  },
+ {
+  "id": 1,
+  "nombre": "Ruta Romana",
+  "tipo": "Histórica",
+  "descripcion": "Descubre los restos de Tarraco.",
+  "duracion": "2h",
+  "contenido": [
+    "Anfiteatro romano de Tarragona",
+    "Foro de la Colonia",
+    "Murallas romanas de Tarragona",
+    "Circo romano",
+    "Museo Nacional Arqueológico de Tarragona",
+    "Aqüeducte de les Ferreres (Pont del Diable)"
+  ],
+  "archivo_gpx": "/gpx/murallas_romanas.gpx",
+  "es_predeterminada": true,
+  "imagen": "/src/assets/anfiteatro.jpg"
+},
+
   {
     "id": 2,
     "nombre": "Ruta de Montaña",

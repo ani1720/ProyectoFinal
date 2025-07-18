@@ -14,13 +14,15 @@ export const extraerCoordenadasDesdeGPX = async (url) => {
     geojson.features.forEach((feature) => {
       if (feature.geometry && feature.geometry.type === "LineString") {
         feature.geometry.coordinates.forEach((coord) => {
-          // Invertir de [lon, lat] si es necesario
-          coordenadas.push(coord); // [lon, lat]
+          coordenadas.push(coord); // Originalmente incluye [lon, lat, alt]
         });
       }
     });
 
-    return coordenadas;
+    // Filtrar a solo [lon, lat]
+    const coordenadasFiltradas = coordenadas.map(([lon, lat]) => [lon, lat]);
+
+    return coordenadasFiltradas;
   } catch (error) {
     console.error("Error al leer el archivo GPX:", error);
     return [];
