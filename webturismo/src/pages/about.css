@@ -11,6 +11,7 @@
   margin: auto;
 }
 
+/* Sección del logo y texto principal */
 .about-logo-section {
   flex: 0 0 auto;
   display: flex;
@@ -24,11 +25,11 @@
 }
 
 .about-content {
-  flex: 1;
   min-width: 300px;
   max-width: 700px;
 }
 
+/* Títulos y texto */
 .about-content h2 {
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
@@ -37,8 +38,8 @@
 
 .about-content p,
 .about-content li {
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: 1.2rem;
+  line-height: 1.8;
   color: white;
 }
 
@@ -46,6 +47,19 @@
   padding-left: 1.5rem;
   list-style: disc;
 }
+
+/* NUEVA SECCIÓN que aparecerá debajo de .about-wrapper */
+.content-who {
+  width: 100%;
+  margin: 1rem auto 0;
+  padding: 0 2rem;
+  text-align: left;
+  color: white;
+  max-width: 1200px;
+  font-size: 1.2rem;
+}
+
+/* Responsive tweaks */
 @media (max-width: 768px) {
   .about-wrapper {
     flex-direction: column;
@@ -55,5 +69,10 @@
 
   .about-logo {
     width: 150px;
+  }
+
+  .content-who {
+    padding: 0 1rem;
+    text-align: center; /* Opcional si quieres centrar en pantallas pequeñas */
   }
 }

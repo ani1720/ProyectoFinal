@@ -1,5 +1,9 @@
 import React from "react";
 import Logo from "../assets/Logo2.png";
+import IconMap from "../assets/mapa.png"
+import IconLugar from "../assets/restos.png"
+import IconCamara from "../assets/camara.png"
+import IconForo from "../assets/foro.png"
 import "./About.css";
 
 const About = () => {
@@ -11,18 +15,20 @@ const About = () => {
 
       <div className="about-content">
         <p>
-          Bienvenido a <strong>Tarraco Explorer</strong>, una plataforma pensada para ayudarte a
+          Bienvenido a <strong>TGoTours</strong>, una plataforma pensada para ayudarte a
           descubrir y disfrutar lo mejor de Tarragona.
         </p>
 
         <h2>¿Qué encontrarás aquí?</h2>
         <ul>
-          <li>🗺️ Mapas interactivos con rutas peatonales optimizadas</li>
-          <li>🏛️ Puntos de interés destacados con información histórica</li>
-          <li>📷 Imágenes y recomendaciones de cada lugar</li>
-          <li>📝 Foro donde puedes dejar tus comentarios o experiencias</li>
+          <li><img src={IconMap} alt="icono de mapa" />  Mapas interactivos con rutas peatonales optimizadas</li>
+          <li><img src={IconLugar} alt="icono de lugar" /> Puntos de interés destacados con información histórica</li>
+          <li><img src={IconCamara} alt="icono de camara" /> Imágenes y recomendaciones de cada lugar</li>
+          <li><img src={IconForo} alt="icono de foro" /> Foro donde puedes dejar tus comentarios o experiencias</li>
         </ul>
+        </div>
 
+        <div className="content-who">
         <h2>¿Quiénes somos?</h2>
         <p>
           Este proyecto nace con el objetivo de facilitar el turismo local, especialmente para
@@ -32,8 +38,8 @@ const About = () => {
 
         <h2>¿Cómo funciona?</h2>
         <p>
-          Elige una ruta desde el menú o desde la página principal. Podrás ver los puntos
-          destacados, un mapa en tiempo real y comentarios de otros visitantes.
+          Elige una ruta dependiendo de lo que desees hacer desde nuestro menú de rutas donde tendras divertidas y entretenidas opciones.
+          Podrás ver los puntos destacados, un mapa en tiempo real y comentarios de otros visitantes.
         </p>
 
         <h2>¿Tienes sugerencias?</h2>
@@ -52,7 +58,7 @@ const About = () => {
           ¡Esperamos que disfrutes tu viaje por Tarragona tanto como nosotros disfrutamos construir
           esta plataforma!
         </p>
-      </div>
+        </div>
     </div>
   );
 };
