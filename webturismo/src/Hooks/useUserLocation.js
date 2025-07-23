@@ -1,26 +1,21 @@
 import { useEffect, useState } from "react";
 
 const useUserLocation = () => {
-  const [userLocation, setUserLocation] = useState(null);
+  const [location, setLocation] = useState(null);
 
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const lat = position.coords.latitude;
-          const lng = position.coords.longitude;
-          setUserLocation([lng, lat]); // ORS requiere [lng, lat]
-        },
-        (error) => {
-          console.error("Error obteniendo ubicación:", error.message);
-        }
-      );
-    } else {
-      alert("Tu navegador no soporta geolocalización");
-    }
+    if (!navigator.geolocation) return;
+
+    navigator.geolocation.getCurrentPosition(
+      (pos) => setLocation([pos.coords.latitude, pos.coords.longitude]),
+      (err) => {
+        console.error("No se pudo obtener la ubicación:", err);
+        setLocation(null);
+      }
+    );
   }, []);
 
-  return userLocation;
+  return location;
 };
 
 export default useUserLocation;

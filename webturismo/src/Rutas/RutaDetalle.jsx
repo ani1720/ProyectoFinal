@@ -1,15 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import L from "leaflet";
-import useUserLocation from "../Hooks/useUserLocation"
+import useUserLocation from "../Hooks/useUserLocation";
 import { useLocation } from "react-router-dom";
-
 
 const RutaDetalle = () => {
   const mapRef = useRef(null);
   const [rutaSeleccionada, setRutaSeleccionada] = useState(null);
   const [comentarios, setComentarios] = useState([]);
   const [nuevoComentario, setNuevoComentario] = useState("");
-  const userLocation = useUserLocation(); 
+  const userLocation = useUserLocation();
 
   useEffect(() => {
     const mapContainer = document.getElementById("map");
@@ -18,8 +17,9 @@ const RutaDetalle = () => {
     // Crear mapa solo una vez
     mapRef.current = L.map("map").setView([41.117, 1.25], 14);
 
-    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
-      attribution:'&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors & CartoDB',
+    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png", {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors & CartoDB',
     }).addTo(mapRef.current);
 
     // Cargar datos de Rutas.json
@@ -30,7 +30,7 @@ const RutaDetalle = () => {
       })
       .catch((error) => console.error("Error al cargar Rutas.json:", error));
   }, []);
-//cuando se cargue una ruta
+  //cuando se cargue una ruta
   useEffect(() => {
     if (rutaSeleccionada) {
       obtenerRuta(rutaSeleccionada.coordenadasJSON);
@@ -44,23 +44,47 @@ const RutaDetalle = () => {
 
       let coordenadas = data.ruta.map((p) => p.coordenadas);
 
+      if (userLocation && mapRef.current) {
+        L.marker(userLocation).addTo(mapRef.current).bindPopup("Tu ubicación");
+      }
+      mapRef.current.eachLayer((layer) => {
+        if (layer instanceof L.Marker || layer instanceof L.GeoJSON) {
+          mapRef.current.removeLayer(layer);
+        }
+      });
       //Insertar ubicacion del Usuario como primer punto si existe
       // Si hay userLocation, agrégalo al inicio (también en [lng, lat])
-    if (userLocation) {
-      coordenadas = [
-        [userLocation[1], userLocation[0]],
-        ...coordenadas,
-      ];
-    }
+
       //Dibuja los marcadores
+      // coordenadas.forEach((coord, i) => {
+      //   L.marker(coord.slice().reverse())
+      //     .addTo(mapRef.current)
+      //     .bindPopup(
+      //       +i === 0 && userLocation
+      //         ? "Tu ubicacion"
+      //         : data.ruta[i - (userLocation ? 1 : 0)].nombre
+      //     );
+      //   // coord.reverse(); // Regresamos a [lng, lat] para ORS
+      // });
+
       coordenadas.forEach((coord, i) => {
+        const punto = data.ruta[i - (userLocation ? 1 : 0)];
+        let popupContent;
+
+        if (+i === 0 && userLocation) {
+          popupContent = "Tu ubicacion";
+        } else if (punto) {
+          popupContent = `
+      <strong>${punto.nombre}</strong><br>
+      <img src="${punto.imagen}" alt="${punto.nombre}" style="max-width:150px;max-height:100px;" />
+    `;
+        } else {
+          popupContent = "";
+        }
+
         L.marker(coord.slice().reverse())
           .addTo(mapRef.current)
-          .bindPopup(+
-            i === 0 && userLocation
-            ? "Tu ubicacion" :
-            data.ruta[i - (userLocation ? 1: 0)].nombre);
-        // coord.reverse(); // Regresamos a [lng, lat] para ORS
+          .bindPopup(popupContent);
       });
 
       //solicita ruta a ors
@@ -74,7 +98,7 @@ const RutaDetalle = () => {
             Authorization:
               "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjcwNGMxOTg0NGQ1MjQ5YjliOWJhMjE0NjE0MzUyNjlmIiwiaCI6Im11cm11cjY0In0=",
           },
-          body: JSON.stringify({ coordinates: coordenadas}),
+          body: JSON.stringify({ coordinates: coordenadas }),
         }
       );
 
@@ -82,8 +106,7 @@ const RutaDetalle = () => {
 
       const resultado = await orsResponse.json();
 
-      L.geoJSON(resultado, { style: { color: "blue", weight: 4 } })
-      .addTo(
+      L.geoJSON(resultado, { style: { color: "blue", weight: 3 } }).addTo(
         mapRef.current
       );
 
