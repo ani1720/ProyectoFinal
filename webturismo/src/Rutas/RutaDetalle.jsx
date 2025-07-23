@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import useUserLocation from "../Hooks/useUserLocation";
 import { useLocation } from "react-router-dom";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase/firebaseConfig";
 
 const RutaDetalle = () => {
   const mapRef = useRef(null);
