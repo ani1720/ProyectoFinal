@@ -1,5 +1,5 @@
 {
-  "name": "01",
+  "name": "test-mapa",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,24 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.7.2",
-    "@fortawesome/free-brands-svg-icons": "^6.7.2",
-    "@fortawesome/free-solid-svg-icons": "^6.7.2",
-    "@fortawesome/react-fontawesome": "^0.2.2",
-    "@tmcw/togeojson": "^7.1.2",
-    "axios": "^1.10.0",
-    "firebase": "^11.10.0",
     "leaflet": "^1.9.4",
-    "leaflet-gpx": "^2.2.0",
-    "leaflet-omnivore": "^0.3.0",
-    "leaflet-routing-machine": "^3.2.12",
-    "polyline": "^0.2.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-leaflet": "^5.0.0",
-    "react-leaflet-cluster": "^2.1.0",
-    "react-router-dom": "^7.6.3",
-    "xmldom": "^0.6.0"
+    "react-leaflet": "^5.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",

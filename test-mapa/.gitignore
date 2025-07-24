@@ -11,11 +11,6 @@ node_modules
 dist
 dist-ssr
 *.local
-echo ".env" >> .gitignore
-git rm --cached .env
-git commit -m "Remove .env from repo"
-git push
-
 
 # Editor directories and files
 .vscode/*

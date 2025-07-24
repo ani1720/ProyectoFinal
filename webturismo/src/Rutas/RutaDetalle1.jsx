@@ -21,23 +21,41 @@ const RutaDetalle = () => {
       attribution: "&copy; OpenStreetMap contributors",
     }).addTo(mapRef.current);
 
-    new L.GPX(ruta.archivo_gpx, {
-      async: true,
-      polyline_options: {
+
+    fetch(ruta.coordenadasJSON)
+    .then((res) => res.json())
+    .then((data) => {
+      const puntos= data.ruta.map((p) => [p.coordenadas[1], p.coordenadas[0]]);
+      L.polyline(puntos, {
         color: "blue",
         weight: 4,
         opacity: 0.8,
-      },
-      marker_options: {
-        startIconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
-        endIconUrl: "https://cdn-icons-png.flaticon.com/512/892/892285.png",
-        shadowUrl: "",
-      },
+      }) .addTo(mapRef.current);
+      puntos.fetch(([lat, lng], i) => {
+        L.marker([lat,lng])
+        .bindPopup(data.ruta[i].nombre)
+        .addTo(mapRef.current);
+      });
+      mapRef.current.fitBounds(puntos);
     })
-      .on("loaded", function (e) {
-        mapRef.current.fitBounds(e.target.getBounds());
-      })
-      .addTo(mapRef.current);
+    .catch((err) => console.error("Error al cargar coordenadas:", err));
+    // new L.GeoJSON(ruta.coordenadasJSON, {
+    //   async: true,
+    //   polyline_options: {
+    //     color: "blue",
+    //     weight: 4,
+    //     opacity: 0.8,
+    //   },
+    //   marker_options: {
+    //     startIconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
+    //     endIconUrl: "https://cdn-icons-png.flaticon.com/512/892/892285.png",
+    //     shadowUrl: "",
+    //   },
+    // })
+    //   .on("loaded", function (e) {
+    //     mapRef.current.fitBounds(e.target.getBounds());
+    //   })
+    //   .addTo(mapRef.current);
   }, [ruta]);
 
   if (!ruta) return <p>Ruta no encontrada</p>;
