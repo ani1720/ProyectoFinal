@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import Logo from "./assets/Logo2.png";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "./firebase/firebaseConfig"; 
+import { db } from "./firebase/firebaseConfig";
 
 function Header({ usuario, nombreUsuario, cerrarSesion }) {
   const [menuAbierto, setMenuAbierto] = useState(false);
@@ -17,7 +17,6 @@ function Header({ usuario, nombreUsuario, cerrarSesion }) {
   const [triggerPos, setTriggerPos] = useState({ top: 0, left: 0 });
   const [triggerHeight, setTriggerHeight] = useState(0);
 
-  // Cerrar menú si clic fuera
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -28,7 +27,6 @@ function Header({ usuario, nombreUsuario, cerrarSesion }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Posición del menú
   useEffect(() => {
     if (menuAbierto && triggerRef.current) {
       const rect = triggerRef.current.getBoundingClientRect();
@@ -37,7 +35,6 @@ function Header({ usuario, nombreUsuario, cerrarSesion }) {
     }
   }, [menuAbierto]);
 
-  // Obtener foto de perfil desde Firestore
   useEffect(() => {
     const obtenerFoto = async () => {
       if (usuario?.uid) {
@@ -52,7 +49,6 @@ function Header({ usuario, nombreUsuario, cerrarSesion }) {
     obtenerFoto();
   }, [usuario]);
 
-  
   return (
     <header className="navbar">
       <div className="logo">
@@ -67,7 +63,7 @@ function Header({ usuario, nombreUsuario, cerrarSesion }) {
         <Link to="/eventos">EVENTOS</Link>
         <Link to="/mapa">MAP</Link>
         <Link to="/rutas">RUTAS</Link>
-        <Link to="/comunidad">COMUNIDAD</Link> 
+        <Link to="/comunidad">COMUNIDAD</Link>
       </nav>
 
       <div
