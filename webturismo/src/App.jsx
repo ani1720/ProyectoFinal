@@ -13,6 +13,7 @@ import Mapa from "./pages/Mapa";
 import Eventos from "./pages/Eventos";
 import Footer from "./components/Footer";
 import EventoDetalle from "./EventoDetalle";
+import EventosMes from "./pages/EventosMes"; 
 import About from "./pages/About";
 import Perfil from "./pages/Perfil";
 import Comunidad from "./pages/comunidad";
@@ -97,7 +98,7 @@ function App() {
         <Route path="/rutas/*" element={<Ruta />} />
         <Route path="/mapa" element={<Mapa />} />
         <Route path="/eventos" element={<Eventos />} />
-        <Route path="/eventos/:titulo" element={<EventoDetalle />} />
+        <Route path="/eventos/:mes" element={<EventosMes />} />
         <Route path="/about" element={<About />} />
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/perfil" element={<Perfil />} />

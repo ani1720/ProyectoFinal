@@ -1,89 +1,66 @@
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { db } from "../firebase/firebaseConfig";
+import { collection, getDocs } from "firebase/firestore";
 
-import React from 'react';
-import './Eventos.css';
+export default function EventosMes() {
+  const { mes } = useParams();
+  const [eventos, setEventos] = useState([]);
 
-const eventosMensuales = [
-  {
-    mes: "Junio",
-    eventos: [
-      {
-        titulo: "Castells semanales",
-        descripcion: "Exhibiciones tradicionales de torres humanas."
-      },
-      {
-        titulo: "Nit de Sant Joan",
-        descripcion: "Celebración con hogueras, música y fuegos artificiales."
-      }
-    ]
-  },
-  {
-    mes: "Julio",
-    eventos: [
-      {
-        titulo: "Concurso de Fuegos Artificiales",
-        descripcion: "Competencia pirotécnica en la playa."
-      },
-      {
-        titulo: "Festival Camp de Mart",
-        descripcion: "Festival cultural con música y teatro al aire libre."
-      }
-    ]
-  },
-  {
-    mes: "Agosto",
-    eventos: [
-      {
-        titulo: "Sant Magí",
-        descripcion: "Fiestas patronales con procesiones y conciertos."
-      },
-      {
-        titulo: "Dixieland",
-        descripcion: "Festival de jazz tradicional."
-      },
-      {
-        titulo: "TarraTangueando",
-        descripcion: "Encuentro de tango con talleres y espectáculos."
-      }
-    ]
-  },
-  {
-    mes: "Septiembre",
-    eventos: [
-      {
-        titulo: "Santa Tecla",
-        descripcion: "Gran fiesta mayor con actos tradicionales y fuegos."
-      },
-      {
-        titulo: "URSI",
-        descripcion: "Encuentro artístico urbano con intervenciones creativas."
-      },
-      {
-        titulo: "Espectáculos en el Palau & cultura científica",
-        descripcion: "Eventos culturales y divulgación científica."
-      }
-    ]
-  }
-];
+  useEffect(() => {
+    const fetchEventos = async () => {
+      try {
+        const colRef = collection(db, `eventos/${mes}`);
+        const snapshot = await getDocs(colRef);
 
-function EventosMes() {
+        const data = snapshot.docs.map((doc) => doc.data());
+        setEventos(data);
+      } catch (error) {
+        console.error("Error al obtener eventos:", error);
+      }
+    };
+
+    fetchEventos();
+  }, [mes]);
+
   return (
-    <div className="eventos-container">
-      <h1>Eventos mensuales en Tarragona</h1>
-      {eventosMensuales.map((grupo, idx) => (
-        <div key={idx}>
-          <h2>{grupo.mes}</h2>
-          <ul className="evento-lista">
-            {grupo.eventos.map((evento, i) => (
-              <li key={i}>
-                <h3>{evento.titulo}</h3>
-                <p>{evento.descripcion}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+    <div style={{ padding: "2rem" }}>
+      <h1>Eventos de {mes.charAt(0).toUpperCase() + mes.slice(1)}</h1>
+
+      {eventos.length === 0 ? (
+        <p>No hay eventos disponibles para este mes.</p>
+      ) : (
+        eventos.map((evento, index) => (
+          <div
+            key={index}
+            style={{
+              backgroundColor: "#1a1a2e",
+              padding: "1.5rem",
+              borderRadius: "10px",
+              marginBottom: "2rem",
+              color: "white",
+            }}
+          >
+            <h2>{evento.nombre}</h2>
+            <p><strong>Mes:</strong> {mes}</p>
+            <p><strong>Fecha:</strong> {evento.fecha}</p>
+            <p>{evento.descripcion}</p>
+            {evento.imagenUrl && (
+              <img
+                src={evento.imagenUrl}
+                alt={evento.nombre}
+                style={{
+                  width: "100%",
+                  maxHeight: "400px",
+                  objectFit: "cover",
+                  borderRadius: "8px",
+                  marginTop: "1rem",
+                }}
+              />
+            )}
+          </div>
+        ))
+      )}
     </div>
   );
 }
-
-export default EventosMes;
