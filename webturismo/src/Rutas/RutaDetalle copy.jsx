@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import L from "leaflet";
-import useUserLocation from "../Hooks/useUserLocation";
+import useUserLocation from "../../../../TGoTours/webturismo/src/Hooks/useUserLocation";
 import { useParams } from "react-router-dom";
 import {
   collection,
@@ -13,8 +13,8 @@ import {
   deleteDoc,
   getDoc,
 } from "firebase/firestore";
-import { db } from "../firebase/firebaseConfig";
-import { useUser } from "../context/UserContext";
+import { db } from "../../../../TGoTours/webturismo/src/firebase/firebaseConfig";
+import { useUser } from "../../../../TGoTours/webturismo/src/context/UserContext";
 
 const RutaDetalle = () => {
   const { id } = useParams(); // 🔑 Usamos el ID de la URL
@@ -61,32 +61,32 @@ const RutaDetalle = () => {
   }, [userLocation]);
 
   useEffect(() => {
-  const cargarRutaPorId = async () => {
-    try {
-      console.log("🆔 ID recibido:", id); // Verifica el ID
-      const docRef = doc(db, "rutas", id);
-      const docSnap = await getDoc(docRef);
+    const cargarRutaPorId = async () => {
+      try {
+        console.log("🆔 ID recibido:", id); // Verifica el ID
+        const docRef = doc(db, "Rutas", id);
+        const docSnap = await getDoc(docRef);
 
-      if (docSnap.exists()) {
-        console.log("✅ Documento encontrado:", docSnap.data());
-        setRutaSeleccionada(docSnap.data());
-      } else {
-        console.warn("⚠️ No se encontró la ruta con el ID:", id);
+        if (docSnap.exists()) {
+          console.log("✅ Documento encontrado:", docSnap.data());
+          setRutaSeleccionada(docSnap.data());
+        } else {
+          console.warn("⚠️ No se encontró la ruta con el ID:", id);
+        }
+      } catch (error) {
+        console.error("❌ Error al cargar la ruta:", error);
       }
-    } catch (error) {
-      console.error("❌ Error al cargar la ruta:", error);
-    }
-  };
+    };
 
-  if (id) cargarRutaPorId();
-}, [id]);
+    if (id) cargarRutaPorId();
+  }, [id]);
 
   //cuando se cargue una ruta
 
   useEffect(() => {
     if (!id) return;
     const q = query(
-      collection(db, "rutas", id, "comments"),
+      collection(db, "Rutas", id, "comments"),
       orderBy("createdAt", "asc")
     );
     const unsubscribe = onSnapshot(q, (snap) => {
@@ -96,22 +96,82 @@ const RutaDetalle = () => {
     return () => unsubscribe();
   }, [id]);
 
-  const obtenerRuta = async () => {
-    try {
+    const obtenerRuta = async () => {
+  try {
+    const data = rutaSeleccionada;
+
+    // ✅ Tomamos coordenadas de tipo GeoPoint
+    const coordenadas = data.coordenadas;
+
+    if (!Array.isArray(coordenadas) || coordenadas.length === 0) {
+      console.warn("⚠️ No hay coordenadas válidas");
+      return;
+    }
+
+    // 🔄 Limpiar capas anteriores
+    mapRef.current.eachLayer((layer) => {
+      if (layer instanceof L.Marker || layer instanceof L.GeoJSON) {
+        mapRef.current.removeLayer(layer);
+      }
+    });
+
+    // 📍 Dibujar marcadores en el mapa
+    coordenadas.forEach((coord, i) => {
+      const latLng = [coord.latitude, coord.longitude]; // Leaflet: [lat, lng]
+      const popupText =
+        i === 0 && userLocation ? "Tu ubicación" : `Punto ${i + 1}`;
+      L.marker(latLng)
+        .addTo(mapRef.current)
+        .bindPopup(popupText);
+    });
+
+    // 🧭 Preparar coordenadas para ORS: [lng, lat]
+    const coordenadasORS = coordenadas.map((p) => [p.longitude, p.latitude]);
+
+    // 📡 Llamada a OpenRouteService
+    const orsResponse = await fetch(
+      "https://api.openrouteservice.org/v2/directions/foot-walking/geojson",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json, application/geo+json",
+          "Content-Type": "application/json",
+          Authorization:
+              "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjcwNGMxOTg0NGQ1MjQ5YjliOWJhMjE0NjE0MzUyNjlmIiwiaCI6Im11cm11cjY0In0=",
+
+        },
+        body: JSON.stringify({ coordinates: coordenadasORS }),
+      }
+    );
+
+    if (!orsResponse.ok) throw new Error("Error al obtener ruta ORS");
+
+    const resultado = await orsResponse.json();
+
+    // 🖌️ Dibujar la línea de ruta
+    L.geoJSON(resultado, { style: { color: "blue", weight: 3 } }).addTo(
+      mapRef.current
+    );
+
+    // 🗺️ Ajustar el zoom al recorrido
+    const bounds = L.geoJSON(resultado).getBounds();
+    mapRef.current.fitBounds(bounds);
+  } catch (err) {
+    console.error("❌ Error:", err);
+  }
+};
+
+  useEffect(() => {
+  if (rutaSeleccionada) {
+    obtenerRuta();
+  }
+}, [rutaSeleccionada, userLocation]);
+
+
+
       // const response = await fetch(coordenadasURL);
       //   const data = await response.json();
-      const data = rutaSeleccionada;
-
-      let coordenadas = data.ruta.map((p) => p.coordenadas);
-
-      if (userLocation && mapRef.current) {
-        L.marker(userLocation).addTo(mapRef.current).bindPopup("Tu ubicación");
-      }
-      mapRef.current.eachLayer((layer) => {
-        if (layer instanceof L.Marker || layer instanceof L.GeoJSON) {
-          mapRef.current.removeLayer(layer);
-        }
-      });
+      
       //Insertar ubicacion del Usuario como primer punto si existe
       // Si hay userLocation, agrégalo al inicio (también en [lng, lat])
 
@@ -127,67 +187,12 @@ const RutaDetalle = () => {
       //   // coord.reverse(); // Regresamos a [lng, lat] para ORS
       // });
 
-      coordenadas.forEach((coord, i) => {
-        const punto = data.ruta[i - (userLocation ? 1 : 0)];
-        let popupContent;
-
-        if (+i === 0 && userLocation) {
-          popupContent = "Tu ubicacion";
-        } else if (punto) {
-          popupContent = `
-      <strong>${punto.nombre}</strong><br>
-      <img src="${punto.imagen}" alt="${punto.nombre}" style="max-width:150px;max-height:100px;" />
-    `;
-        } else {
-          popupContent = "";
-        }
-
-        L.marker(coord.slice().reverse())
-          .addTo(mapRef.current)
-          .bindPopup(popupContent);
-      });
-      useEffect(() => {
-        if (rutaSeleccionada) {
-          obtenerRuta(rutaSeleccionada.coordenadasJSON);
-        }
-      }, [rutaSeleccionada, userLocation]);
-
-      //solicita ruta a ors
-      const orsResponse = await fetch(
-        "https://api.openrouteservice.org/v2/directions/foot-walking/geojson",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json, application/geo+json",
-            "Content-Type": "application/json",
-            Authorization:
-              "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjcwNGMxOTg0NGQ1MjQ5YjliOWJhMjE0NjE0MzUyNjlmIiwiaCI6Im11cm11cjY0In0=",
-          },
-          body: JSON.stringify({ coordinates: coordenadas }),
-        }
-      );
-
-      if (!orsResponse.ok) throw new Error("Error al obtener ruta de ORS");
-
-      const resultado = await orsResponse.json();
-
-      L.geoJSON(resultado, { style: { color: "blue", weight: 3 } }).addTo(
-        mapRef.current
-      );
-
-      const bounds = L.geoJSON(resultado).getBounds();
-      mapRef.current.fitBounds(bounds);
-    } catch (err) {
-      console.error("Error:", err);
-    }
-  };
-
   const publicarComentario = async () => {
     if (!nuevoComentario.trim() || !usuario?.uid || !id) return;
 
     const fotoURL = usuario.fotoURL ? usuario.fotoURL : null;
 
-    await addDoc(collection(db, "rutas", id, "comments"), {
+    await addDoc(collection(db, "Rutas", id, "comments"), {
       content: nuevoComentario.trim(),
       authorId: usuario.uid,
       authorName: usuario.displayName || usuario.email,
@@ -200,7 +205,7 @@ const RutaDetalle = () => {
 
   const eliminarComentario = async (commentId) => {
     try {
-      const refDoc = doc(db, "rutas", id, "comments", commentId);
+      const refDoc = doc(db, "Rutas", id, "comments", commentId);
       await deleteDoc(refDoc);
     } catch (error) {
       console.error("Error al eliminar el comentario:", error);
