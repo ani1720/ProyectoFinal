@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import { useEffect, useState } from "react";
 import { Routes, Route, Link } from "react-router-dom"; // Link no se usa aquí directamente, pero está bien
 import { onAuthStateChanged } from "firebase/auth";
@@ -113,6 +114,18 @@ function App() {
       </UserContext.Provider>
       <Footer />
     </>
+=======
+// src/App.jsx
+import "./App.css";
+import MapView from "./MapView";
+
+function App() {
+  return (
+    <div className="App">
+      <h1>Rutas de Montaña en Tarragona</h1>
+      <MapView />
+    </div>
+>>>>>>> Stashed changes
   );
 }
 
