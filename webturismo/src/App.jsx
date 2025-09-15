@@ -1,5 +1,6 @@
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import { useEffect, useState } from "react";
 import { Routes, Route, Link } from "react-router-dom"; // Link no se usa aquí directamente, pero está bien
 import { onAuthStateChanged } from "firebase/auth";
@@ -130,11 +131,22 @@ import MapView from "./MapView";
 function App() {
   return (
 >>>>>>> Stashed changes
+=======
+// src/App.jsx
+import "./App.css";
+import MapView from "./MapView";
+
+function App() {
+  return (
+>>>>>>> Stashed changes
     <div className="App">
       <h1>Rutas de Montaña en Tarragona</h1>
       <MapView />
     </div>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
